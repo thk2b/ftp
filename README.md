@@ -104,8 +104,7 @@ The `?` symbol represents a conditional branch, ie. matching a specific conditio
 
 - LISTEN
 	- accept connection	-> ERROR
-	- fork				-> ERROR, COMMAND
-	- -> LISTEN 
+	- fork				-> ERROR, COMMAND(child), LISTEN(main)
 
 #### server child process
 
