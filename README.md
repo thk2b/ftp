@@ -1,6 +1,26 @@
 # FTP
 A FTP client and server implementation
 
+## usage
+
+### compile
+
+```
+make
+```
+
+### client
+
+```
+./client [ host=localhost [ port=2222 ]] [-l loglevel=1]
+```
+
+### server
+
+```
+./server [ port=2222 ] [-l loglevel=1]
+```
+
 ## commands
 
 |code|names|arguments|description|
