@@ -11,10 +11,11 @@ extern	t_transition		g_client_transitions[] = {
 	{ FAILURE,	c_failure },
 	{ SUCCESS,	c_success },
 	NULL
-}
+};
 
 extern	t_data_transition	g_client_data_transitions[] = {
-	{ 4,	receive_file },
-	{ 5,	send_file },
+	{ 1,		receive_list },
+	{ 4,		receive_file },
+	{ 5,		send_file },
 	NULL
-}
+};

@@ -26,7 +26,7 @@ typedef struct	s_transition
 
 typedef struct	s_data_transition
 {
-	int				code;
+	int				cmd_code;
 	t_transition_fn	action;
 }				t_data_transition;
 

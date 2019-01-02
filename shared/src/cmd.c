@@ -1,11 +1,11 @@
 #include <shared.h>
 
-extern char	**g_cmd_names[] = {
-	{"QUIT",	"EXIT", NULL},
-	{"LIST",	"LS",	NULL},
-	{"CWD",		"CD",	NULL},
-	{"PWD",				NULL},
-	{"RETR",	"GET",	NULL},
-	{"STORE",	"PUT",	NULL},
+extern t_cmd	g_cmd[] = {
+	{ 0, { "QUIT",	"EXIT",	NULL }},
+	{ 1, { "LIST",	"LS",	NULL }},
+	{ 2, { "CWD",	"CD",	NULL }},
+	{ 3, { "PWD",			NULL }},
+	{ 4, { "RETR",	"GET",	NULL }},
+	{ 5, { "STORE",	"PUT",	NULL }},
 	NULL
 }
