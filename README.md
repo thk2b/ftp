@@ -1,9 +1,9 @@
-# ftp
+# FTP
 A FTP client and server implementation
 
-# state machines
+## state machines
 
-## states
+### states
 
 Clients and servers can be in some of the following states.
 
@@ -19,13 +19,13 @@ Clients and servers can be in some of the following states.
 |7|SUCCESS|Operation succeded|
 |8|EXIT|exit process|
 
-## transitions
+### transitions
 
 A transition coresponds to an action that takes a client or server from one state to another.
 The appropriate action is selected according to the current state and the process's identy, (client, server main, server child).
 The next state is determined by the selected action.
 
-### client
+#### client
 
 |current state|action|next states|
 |-|-|-|
@@ -39,7 +39,7 @@ The next state is determined by the selected action.
 |SUCCESS|display success message|USER|
 |EXIT|exit|N/A|
 
-### server main process
+#### server main process
 
 |current state|action|next states|
 |-|-|-|
@@ -48,7 +48,7 @@ The next state is determined by the selected action.
 |ERROR|display error message|LISTEN, EXIT|
 |EXIT|exit|N/A|
 
-### server child process
+#### server child process
 
 |current state|action|next states|
 |-|-|-|
