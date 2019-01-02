@@ -5,6 +5,10 @@ A FTP client and server implementation
 
 |code|names|arguments|description|
 |-|-|-|-|
+||QUIT, EXIT||close the connection and restore control of the terminal to the shell|
+||LIST, LS|filename?|list server's current working directory|
+||CWD, CD|path|change server's current working directory. Cannot move above the server's `data` directory.|
+||PWD||print the server's current working directory|
 ||RETRIEVE, GET|filename|request file from remote server, create or overrive local file|
 ||STORE, PUT|filename|send file to remote server, create or override file on the server|
 
