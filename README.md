@@ -25,7 +25,7 @@ A transition coresponds to an action that takes a client or server from one stat
 The appropriate action is selected according to the current state and the process's identy, (client, server main, server child).
 The next state is determined by the selected action.
 
-For the client:
+### client
 
 |current state|action|next states|
 |-|-|-|
@@ -39,7 +39,7 @@ For the client:
 |SUCCESS|display success message|USER|
 |EXIT|exit|N/A|
 
-For the server main process:
+### server main process
 
 |current state|action|next states|
 |-|-|-|
@@ -48,7 +48,7 @@ For the server main process:
 |ERROR|display error message|LISTEN, EXIT|
 |EXIT|exit|N/A|
 
-For the server child processes:
+### server child process
 
 |current state|action|next states|
 |-|-|-|
