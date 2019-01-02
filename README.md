@@ -32,13 +32,30 @@ make
 ||RETRIEVE, GET|filename|request file from remote server, create or overrive local file|
 ||STORE, PUT|filename|send file to remote server, create or override file on the server|
 
+## architecture
+
+This implementation of FTP is divided into 3 parts, each corresponding to a process on a host.
+
+1) the client
+
+Connects to a server and issues commands.
+
+2) the server listener
+
+Binds to a socket and accepts connections from clients. For each connection, a controller process is created.
+
+3) the server controller
+
+Controls the connection with one specific client.
+
 ## state machines
 
-The client and server action flow is implemented via state machines.
+Each of the above parts is represented as a finite state machine.
+All 3 share the same set of states, but the transitions differ.
 
 ### states
 
-The Client, server main process and server child process can be in some of the following states.
+Each of the lient, server listener and server controller processes can be in some of the following states.
 
 |value|name|decription|
 |-|-|-|
@@ -55,10 +72,9 @@ The Client, server main process and server child process can be in some of the f
 
 ### transitions
 
-A transition coresponds to an action that takes a client or server from one state to another.
-The appropriate action is selected according to the current state and the process's identy, (client, server main, server child).
-Actions are function of the curent state, the process's identity, and the current context (command, ...).
-They return the next state.
+A transition coresponds to a sequence of action that takes a process from one state to another.
+The appropriate action is selected according to the current state, the context (ie. the command) and the process's identy, (client, server main, server child).
+Transitions return the next state depending on the result of the action.
 
 #### client
 
@@ -74,7 +90,7 @@ They return the next state.
 |SUCCESS|display success message|USER|
 |EXIT|exit|N/A|
 
-#### server main process
+#### server lister process
 
 |current state|action|next states|
 |-|-|-|
@@ -83,7 +99,7 @@ They return the next state.
 |ERROR|display error message|LISTEN, EXIT|
 |EXIT|exit|N/A|
 
-#### server child process
+#### server controller process
 
 |current state|action|next states|
 |-|-|-|
@@ -125,13 +141,13 @@ The `?` symbol represents a conditional branch, ie. matching a specific conditio
 		- pipe(conn, file)				-> ERROR, RESPONSE
 	- ?									-> ?
 
-#### server main process
+#### server listener process
 
 - LISTEN
 	- accept connection	-> ERROR
 	- fork				-> ERROR, COMMAND(child), LISTEN(main)
 
-#### server child process
+#### server controller process
 
 - COMMAND
 	- get command from conn	-> ERROR
