@@ -1,11 +1,20 @@
 # FTP
 A FTP client and server implementation
 
+## commands
+
+|code|names|arguments|description|
+|-|-|-|-|
+||RETRIEVE, GET|filename|request file from remote server, create or overrive local file|
+||STORE, PUT|filename|send file to remote server, create or override file on the server|
+
 ## state machines
+
+The client and server action flow is implemented via state machines.
 
 ### states
 
-Clients and servers can be in some of the following states.
+The Client, server main process and server child process can be in some of the following states.
 
 |value|name|decription|
 |-|-|-|
@@ -23,7 +32,8 @@ Clients and servers can be in some of the following states.
 
 A transition coresponds to an action that takes a client or server from one state to another.
 The appropriate action is selected according to the current state and the process's identy, (client, server main, server child).
-The next state is determined by the selected action.
+Actions are function of the curent state, the process's identity, and the current context (command, ...).
+They return the next state.
 
 #### client
 
@@ -33,7 +43,7 @@ The next state is determined by the selected action.
 |USER|get command|COMMAND, FAILURE, ERROR|
 |COMMAND|send command|RESPONSE, ERROR, EXIT|
 |RESPONSE|recieve and process response|DATA, SUCCESS, FAILURE, ERROR|
-|DATA|send or recieve and process data|SUCCESS, ERROR|
+|DATA|send or recieve and process data|RESPONSE, ERROR|
 |ERROR|display error message|USER, EXIT|
 |FAILURE|display failure message|USER|
 |SUCCESS|display success message|USER|
@@ -52,21 +62,74 @@ The next state is determined by the selected action.
 
 |current state|action|next states|
 |-|-|-|
-|START|initialize connection|COMMAND, ERROR|
 |COMMAND|recieve and process command|RESPONSE, EXIT, FAILURE, ERROR|
 |RESPONSE|send response|DATA, COMMAND, ERROR|
 |DATA|send or recieve data|SUCCESS, ERROR|
 |ERROR|display error message|EXIT, COMMAND|
-|FAILURE|display failure message|COMMAND|
-|SUCCESS|display success message|COMMAND|
+|FAILURE|display failure message, send 4xy, 5xy|COMMAND|
+|SUCCESS|display success message, send 2xy|COMMAND|
 |EXIT|exit|N/A|
 
-## actions
+### actions
 
-Actions are function of the curent state, the process's identity, and the current context (command, ...).
-They return the next state.
+The following is a more detailed description of the state transitons, emphasizing the specific system calls invoked and context updates.
+The `->` symbol represents an immediate transition to the specified state.
+The `?` symbol represents a conditional branch, ie. matching a specific condition in the current context.
 
-## commands
+#### client
 
-The same process takes different paths through the state graph depending on the specificities of the command.
+- COMMAND
+	- get command from stdin			-> ERROR
+	- process command (if applicable)
+		- STOR? open file, command.fd	-> ERROR, FAILURE
+	- -> RESPONSE
+
+- RESPONSE
+	- get response from conn			-> ERROR
+	- process response
+		- 1xy							-> DATA
+		- 2xy							-> SUCCESS
+		- 3xy, 4xy, 5xy					-> ERROR, FAILURE
+
+- DATA
+	- STOR?
+		- mmap command.fd				-> ERROR
+		- write file to connection		-> ERROR, RESPONSE
+	- RETR?
+		- open(creat/trunc) command.filename	-> ERROR
+		- pipe(conn, file)				-> ERROR, RESPONSE
+	- ?									-> ?
+
+#### server main process
+
+- LISTEN
+	- accept connection	-> ERROR
+	- fork				-> ERROR, COMMAND
+	- -> LISTEN 
+
+#### server child process
+
+- COMMAND
+	- get command from conn	-> ERROR
+	- process command		-> ERROR, FAILURE
+		- STOR?
+			- send 1xy		-> ERROR, DATA
+		- RETR?
+			- validate file	-> ERROR, FAILURE, DATA
+		- LIST?
+			- validate file	-> ERROR, FAILURE, DATA
+		- ?					-> ?
+
+- DATA
+	- STOR?
+		- open(creat/trunc) command.filename	-> ERROR
+		- pipe(conn, file)						-> ERROR, SUCCESS
+	- RETR?
+		- mmap command.fd						-> ERROR
+		- write file to connection				-> ERROR, SUCCESS
+	- LIST?
+		- readdir to buffer						-> ERROR
+		- write buffer to socket				-> ERROR, SUCCESS
+	- ?					-> ?
+
 
