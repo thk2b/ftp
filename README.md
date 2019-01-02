@@ -44,13 +44,14 @@ The Client, server main process and server child process can be in some of the f
 |-|-|-|
 |0|START|Initial state|
 |1|USER|Awaiting user input|
-|2|COMMAND|Sending or awaiting command|
-|3|RESPONSE|Sending or awaiting response|
-|4|DATA|Sending or awaiting data|
-|5|ERROR|There was an internal or network error|
-|6|FAILURE|Operation failed|
-|7|SUCCESS|Operation succeded|
-|8|EXIT|exit process|
+|2|LISTEN|Awaiting connection|
+|3|COMMAND|Sending or awaiting command|
+|4|RESPONSE|Sending or awaiting response|
+|5|DATA|Sending or awaiting data|
+|6|ERROR|There was an internal or network error|
+|7|FAILURE|Operation failed|
+|8|SUCCESS|Operation succeded|
+|9|EXIT|exit process|
 
 ### transitions
 
