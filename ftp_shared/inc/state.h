@@ -17,7 +17,7 @@ typedef enum	e_state
 	NSTATES
 }				t_state;
 
-typedef t_state	(*t_transition_fn)(t_state current, void **ctx);
+typedef t_state	(*t_transition_fn)(t_state current, void *ctx);
 
 typedef struct	s_transition
 {
