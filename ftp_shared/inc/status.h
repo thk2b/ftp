@@ -1,6 +1,8 @@
 #ifndef			STATUS_H
 # define		STATUS_H
 
+# define FATAL_INTERNAL_ERROR	555
+
 typedef struct	s_error_ctx
 {
 	int			code;

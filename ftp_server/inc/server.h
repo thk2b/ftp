@@ -2,6 +2,12 @@
 # define	SERVER_H
 # include	<shared.h>
 
+typedef struct	s_s_opts
+{
+	int			log_level;
+	int			port;
+}				t_s_opts;
+
 /*
 **	server listener
 */
@@ -35,6 +41,7 @@ typedef struct	s_sc_ctx
 	t_s_opts	opts;
 	int			conn;
 	t_cmd_ctx	cmd;
+	int			status;
 }				t_sc_ctx;
 
 #endif

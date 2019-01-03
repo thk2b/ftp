@@ -8,6 +8,7 @@ extern t_status_message	g_error_messages[] = {
 extern t_status_message	g_failure_messages[] = {
 	{ 504,	"Command not implemented for that parameter"	},
 	{ 550,	"Requested action not taken"					},
+	{ 555,	"Fatal internal error"							},
 	NULL
 };
 
