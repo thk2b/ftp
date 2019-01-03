@@ -3,6 +3,7 @@
 
 typedef enum	e_state
 {
+	NIL,
 	START,
 	USER,
 	LISTEN,
@@ -16,7 +17,7 @@ typedef enum	e_state
 	NSTATES
 }				t_state;
 
-typedef t_state	(*t_transition_fn)(t_state current, void *ctx);
+typedef t_state	(*t_transition_fn)(t_state current, void **ctx);
 
 typedef struct	s_transition
 {
@@ -29,5 +30,7 @@ typedef struct	s_data_transition
 	int				cmd_code;
 	t_transition_fn	action;
 }				t_data_transition;
+
+void			run_state_machine(t_transition *transition_table, t_state state, void *ctx);
 
 #endif
