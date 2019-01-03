@@ -8,5 +8,5 @@ extern t_cmd	g_cmd[] = {
 	{ 3, { "PWD",			NULL },	0,	NULL,				"Print server's current working directory"				},
 	{ 4, { "RETR",	"GET",	NULL },	1,	"<filename>",		"Retreive a file from the server and save it locally"	},
 	{ 5, { "STORE",	"PUT",	NULL },	1,	"<filename>",		"Retreive a local file and send save it on the server"	},
-	NULL
+	{ -1, NULL, 0, NULL, NULL }
 }

@@ -10,5 +10,5 @@ t_transition		g_controller_transitions[] = {
 	{ FAILURE,	sc_failure			},
 	{ SUCCESS,	sc_success			},
 	{ EXIT,		sc_exit				},
-	NULL
+	{ NIL,		NULL				}
 };
