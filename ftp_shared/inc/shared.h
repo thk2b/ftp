@@ -4,6 +4,6 @@
 
 # include	<cmd.h>
 # include	<state.h>
-
+# include	<status.h>
 
 #endif

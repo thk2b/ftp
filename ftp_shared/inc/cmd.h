@@ -12,6 +12,9 @@ typedef struct	s_cmd
 {
 	int			code;
 	char		*names[2];
+	int			min_nargs;
+	char		*description;
+	char		*args_usage;
 }				t_cmd;
 
 #endif
