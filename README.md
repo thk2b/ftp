@@ -52,6 +52,13 @@ Controls the connection with one specific client.
 
 Each of the above parts is represented as a finite state machine.
 All 3 share the same set of states, but the transitions differ.
+The state of each part determines the action to be called.
+But some data, such as connections, commands, etc... persist through state transitions.
+Therefore, the concept of a context is introduced.
+Each part has its own context, which contains all the data required at runtime.
+Eahc process has a context instance.
+Context instances can be modified by any action.
+Actions may assume some previous modification to have previousky taken place. Ie., the LISTEN state can assume that a listening socket has been created.
 
 ### states
 
@@ -172,4 +179,31 @@ The `?` symbol represents a conditional branch, ie. matching a specific conditio
 		- write buffer to socket				-> ERROR, SUCCESS
 	- ?					-> ?
 
+### project structure
 
+```
+src
+	client
+		transitions
+			...
+		c_main.c
+	server
+		listener
+			transitions
+				...
+		controller
+			transitions
+				...
+		s_main.c
+	shared
+		run_state_machine.c
+		
+inc
+	client
+		client.h
+	server
+		server.h
+	shared
+		shared.h
+		states.h
+```
