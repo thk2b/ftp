@@ -92,7 +92,7 @@ Transitions return the next state depending on the result of the action.
 |COMMAND|send command|RESPONSE, ERROR, EXIT|
 |RESPONSE|recieve and process response|DATA, SUCCESS, FAILURE, ERROR|
 |DATA|send or recieve and process data|RESPONSE, ERROR|
-|ERROR|display error message|USER, EXIT|
+|ERROR|display error message|EXIT|
 |FAILURE|display failure message|USER|
 |SUCCESS|display success message|USER|
 |EXIT|exit|N/A|
@@ -103,7 +103,7 @@ Transitions return the next state depending on the result of the action.
 |-|-|-|
 |START|initialize server|LISTEN, ERROR|
 |LISTEN|listen for connections, fork|LISTEN(parent), COMMAND(children), ERROR|
-|ERROR|display error message|LISTEN, EXIT|
+|ERROR|display error message|EXIT|
 |EXIT|exit|N/A|
 
 #### server controller process
@@ -113,7 +113,7 @@ Transitions return the next state depending on the result of the action.
 |COMMAND|recieve and process command|RESPONSE, EXIT, FAILURE, ERROR|
 |RESPONSE|send response|DATA, COMMAND, ERROR|
 |DATA|send or recieve data|SUCCESS, ERROR|
-|ERROR|display error message|EXIT, COMMAND|
+|ERROR|display error message|EXIT|
 |FAILURE|display failure message, send 4xy, 5xy|COMMAND|
 |SUCCESS|display success message, send 2xy|COMMAND|
 |EXIT|exit|N/A|
