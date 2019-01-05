@@ -1,12 +1,15 @@
 CLIENT = client
 SERVER = server
 
-CLIENT_INC = -I src -I src/client
-CLIENT_SRC = $(addprefix src/client/, status.c init.c main.c)
+SHARED_SRC = $(addprefix src/, protocol.c status.c)
+SHARED_INC = -I src
+
+CLIENT_INC = $(SHARED_INC) -I src/client
+CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, init.c main.c)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
-SERVER_INC = -I src -I src/server
-SERVER_SRC = $(addprefix src/server/, main.c)
+SERVER_INC = $(SHARED_INC) -I src/server
+SERVER_SRC = $(SHARED_SRC) $(addprefix src/server/, main.c)
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 
 CC = gcc

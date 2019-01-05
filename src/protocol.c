@@ -9,4 +9,4 @@ t_protocol_entry	g_protocol[] = {
 	{"STOR",	{0, 1}},
 	{"QUIT",	{0, 0}},
 	{NULL,		{0, 0}}
-}
+};
