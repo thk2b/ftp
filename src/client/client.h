@@ -3,7 +3,7 @@
 
 # include <stdlib.h>
 
-# define USAGE		"%s host [ port ]\n"
+# define USAGE		"%s host [ port ]"
 
 /*
 **	options
@@ -12,7 +12,7 @@
 
 typedef struct	s_opts
 {
-	char		*host;
+	char		*ip;
 	int			port;
 }				t_opts;
 
@@ -41,7 +41,7 @@ typedef struct	s_comd_inst
 
 int				usage_error(char **av);
 int				info(char *fmt, ...);
-int				error(t_cmd_inst *cmd);
+int				error(int ret, char *fmt, ...);
 int				failure(t_cmd_inst *cmd);
 int				success(t_cmd_inst *cmd);
 
