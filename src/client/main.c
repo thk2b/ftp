@@ -4,19 +4,14 @@
 
 static int	parse_args(t_opts *opts, int ac, char **av)
 {
-	opts->host = "0.0.0.0";
+	opts->host = NULL;
 	opts->port = 8080;
-	if (ac == 1)
-	{}
-	else if (ac == 2)
-		opts->port = atoi(av[1]);
-	else if (ac == 3)
-	{
-		opts->port = atoi(av[2]);
-		opts->host = av[1];
-	}
-	else
+	if (ac < 2 || ac > 3)
 		return (1);
+	if (ac >= 2)
+		opts->host = av[1];
+	if (ac == 3)
+		opts->port = atoi(av[2]);
 	return (0);
 }
 

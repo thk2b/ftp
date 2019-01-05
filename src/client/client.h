@@ -3,7 +3,7 @@
 
 # include <stdlib.h>
 
-# define USAGE		"%s [[ host ] port ]"
+# define USAGE		"%s host [ port ]\n"
 
 /*
 **	options
