@@ -2,7 +2,7 @@ CLIENT = client
 SERVER = server
 
 CLIENT_INC = -I src -I src/client
-CLIENT_SRC = $(addprefix src/client/, main.c)
+CLIENT_SRC = $(addprefix src/client/, status.c init.c main.c)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 SERVER_INC = -I src -I src/server
