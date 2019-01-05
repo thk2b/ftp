@@ -21,4 +21,6 @@ typedef struct	s_request
 	size_t		code;
 }				t_request;
 
+int				validate_arguments(size_t i, char **cmd);
+
 #endif

@@ -6,6 +6,11 @@
 		"status.h": "c",
 		"cmd.h": "c",
 		"stdlib.h": "c",
-		"protocol.h": "c"
+		"protocol.h": "c",
+		"inet.h": "c",
+		"errno.h": "c",
+		"unistd.h": "c",
+		"string.h": "c",
+		"lib.h": "c"
 	}
 }

@@ -1,6 +1,7 @@
 #include <client.h>
 
 #include <errno.h>
+#include <unistd.h>
 
 static int	parse_args(t_opts *opts, int ac, char **av)
 {
@@ -26,6 +27,7 @@ int				main(int ac, char **av)
 		return (usage_error(USAGE, av));
 	if ((status = init(&ccon, &opts)))
 		return (status);
-	// status = run(ccon);
+	status = run(ccon);
+	close(ccon);
 	return (status);
 }
