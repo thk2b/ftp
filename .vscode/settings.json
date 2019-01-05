@@ -5,6 +5,7 @@
 		"state.h": "c",
 		"status.h": "c",
 		"cmd.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"protocol.h": "c"
 	}
 }
