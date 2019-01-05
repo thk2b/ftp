@@ -19,4 +19,16 @@ typedef struct	s_opts
 	int			port;
 }				t_opts;
 
+/*
+**	init.c
+**		initialize a listening socket
+*/
+
+int				init(int *lconp, t_opts *opts);
+
+/*
+**	run.c
+**		listen for connections, fork, call handler
+*/
+
 #endif

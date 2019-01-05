@@ -13,7 +13,14 @@ int			parse_args(t_opts *opts, int ac, char **av)
 int			main(int ac, char **av)
 {
 	t_opts	opts;
+	int		lcon;
+	int		status;
 
+	status = 0;
 	if (parse_args(&opts, ac, av))
 		return (usage_error(USAGE, av));
+	if ((status = init(&lcon, &opts)))
+		return (status);
+	// status = run(lcon);
+	return (status);
 }
