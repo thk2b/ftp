@@ -44,9 +44,15 @@ int			get_request(t_request *req, int fd)
 	if (status == 0)
 		return (new_exit_request(req));
 	if ((cmd = ft_strsplit(line, ' ')) == NULL)
+	{
+		free(line);
 		return (error(errno, "strsplit"));
+	}
 	free(line);
 	if (init_req(req, cmd))
+	{
+		ft_strvdel(cmd);
 		return (1);
+	}
 	return (0);
 }

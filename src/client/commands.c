@@ -6,11 +6,11 @@
 
 t_cmd	g_commands[] = {
 	{"quit", "close the connection and exit", NULL},
-	{"ls", "list files on the server", "[ path = ./]"},
-	{"cd", "change remote current working directory", "[ path = /]"},
+	{"ls", "list files on the server", "%s [ path = ./]"},
+	{"cd", "change remote current working directory", "%s [ path = /]"},
 	{"pwd", "print the current working directory", NULL},
-	{"get", "retreive a remote file and save it locally", "remote_path [ local_path ]"},
-	{"put", "transmit a local file and save it remotely", "local_path [ remote_path ]"},
+	{"get", "retreive a remote file and save it locally", "%s remote_path [ local_path ]"},
+	{"put", "transmit a local file and save it remotely", "%s local_path [ remote_path ]"},
 	{NULL, NULL, NULL}
 };
 
@@ -19,13 +19,12 @@ t_cmd	g_commands[] = {
 */
 int		unknown_cmd_error(char **cmd)
 {
-	error(500, "syntax: %s is not a command", cmd[0]);
+	usage_error("%s is not a command", cmd);
 	return (1);
 }
 
 int		bad_usage_error(char **cmd, size_t i)
 {
-	error(501, "syntax: invalid arguments\n");
 	usage_error(g_commands[i].arg_help, cmd);
 	return (1);
 }

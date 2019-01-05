@@ -21,7 +21,7 @@ int			init(int *cconp, t_opts *opts)
 	info("attempting connection to %s:%d", inet_ntoa(addr.sin_addr), opts->port);
 	if (connect(sock, (struct sockaddr*)&addr, sizeof(struct sockaddr_in)) < 0)
 		return (error(errno, "connect"));
-	info("connected to %s:%d", opts->ip, opts->port);
+	info("connected to %s:%d", inet_ntoa(addr.sin_addr), opts->port);
 	*cconp = sock;
 	return (0);
 }
