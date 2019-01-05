@@ -9,7 +9,7 @@ CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, init.c main.c)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 SERVER_INC = $(SHARED_INC) -I src/server
-SERVER_SRC = $(SHARED_SRC) $(addprefix src/server/, main.c)
+SERVER_SRC = $(SHARED_SRC) $(addprefix src/server/, init.c run.c  main.c)
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 
 CC = gcc
