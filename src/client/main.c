@@ -23,7 +23,7 @@ int				main(int ac, char **av)
 
 	status = 0;
 	if (parse_args(&opts, ac, av))
-		return (usage_error(av));
+		return (usage_error(USAGE, av));
 	if ((status = init(&ccon, &opts)))
 		return (status);
 	// status = run(ccon);

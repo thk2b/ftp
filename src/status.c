@@ -1,14 +1,12 @@
-#include	<client.h>
-
 #include	<stdio.h>
 #include	<stdarg.h>
 #include	<string.h>
 #include	<errno.h>
 
-int			usage_error(char **av)
+int			usage_error(char *usage, char **av)
 {
 	dprintf(2, "USAGE:\t");
-	dprintf(2, USAGE, av[0]);
+	dprintf(2, usage, av[0]);
 	dprintf(2, "\n");
 	return (1);
 }

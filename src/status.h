@@ -7,7 +7,7 @@
 **	status.c
 */
 
-int				usage_error(char **av);
+int				usage_error(char *usage, char **av);
 int				info(char *fmt, ...);
 int				error(int ret, char *fmt, ...);
 int				failure(t_request *req);

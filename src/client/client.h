@@ -1,12 +1,13 @@
 #ifndef CLIENT_H
 # define CLIENT_H
 
+# define USAGE		"%s host [ port ]"
+
 # include	<protocol.h>
 # include	<status.h>
 
 # include	<stdlib.h>
 
-# define USAGE		"%s host [ port ]"
 
 /*
 **	options
