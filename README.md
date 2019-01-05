@@ -117,7 +117,6 @@ Transitions return the next state depending on the result of the action.
 The server listens on the main process and forks after each client connection.
 The forked process is refered to as the controller, the main process is the listener.
 
-<<<<<<< HEAD
 #### handlers
 
 On the controller, handlers are functions that take a protocol entry and carry out the comunication with the client.
@@ -134,78 +133,4 @@ The controller reads a request from the control connection and finds the apropri
 4. if applicable, write to control connection (2xy)
 
 5. close data connection
-=======
-|current state|action|next states|
-|-|-|-|
-|COMMAND|recieve and process command|RESPONSE, EXIT, FAILURE, ERROR|
-|RESPONSE|send response|DATA, COMMAND, ERROR|
-|DATA|send or recieve data|SUCCESS, ERROR|
-|ERROR|display error message|EXIT|
-|FAILURE|display failure message, send 4xy, 5xy|COMMAND|
-|SUCCESS|display success message, send 2xy|COMMAND|
-|EXIT|exit|N/A|
-
-### actions
-
-The following is a more detailed description of the state transitons, emphasizing the specific system calls invoked and context updates.
-The `->` symbol represents an immediate transition to the specified state.
-The `?` symbol represents a conditional branch, ie. matching a specific condition in the current context.
-
-#### client
-
-- COMMAND
-	- get command from stdin			-> ERROR
-	- process command (if applicable)
-		- STOR? open file, command.fd	-> ERROR, FAILURE
-	- -> RESPONSE
-
-- RESPONSE
-	- get response from conn			-> ERROR
-	- process response
-		- 1xy							-> DATA
-		- 2xy							-> SUCCESS
-		- 3xy, 4xy, 5xy					-> ERROR, FAILURE
-
-- DATA
-	- STOR?
-		- mmap command.fd				-> ERROR
-		- write file to connection		-> ERROR, RESPONSE
-	- RETR?
-		- open(creat/trunc) command.filename	-> ERROR
-		- pipe(conn, file)				-> ERROR, RESPONSE
-	- ?									-> ?
-
-#### server listener process
-
-- LISTEN
-	- accept connection	-> ERROR
-	- fork				-> ERROR, COMMAND(child), LISTEN(main)
-
-#### server controller process
-
-- COMMAND
-	- get command from conn	-> ERROR
-	- process command		-> ERROR, FAILURE
-		- STOR?
-			- send 1xy		-> ERROR, DATA
-		- RETR?
-			- validate file	-> ERROR, FAILURE, DATA
-		- LIST?
-			- validate file	-> ERROR, FAILURE, DATA
-		- ?					-> ?
-
-- DATA
-	- STOR?
-		- open(creat/trunc) command.filename	-> ERROR
-		- pipe(conn, file)						-> ERROR, SUCCESS
-	- RETR?
-		- mmap command.fd						-> ERROR
-		- write file to connection				-> ERROR, SUCCESS
-	- LIST?
-		- readdir to buffer						-> ERROR
-		- write buffer to socket				-> ERROR, SUCCESS
-	- ?					-> ?
-
-### project structure
->>>>>>> 3737f6306911c26f351d93077127045075f09459
 

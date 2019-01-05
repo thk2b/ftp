@@ -30,3 +30,5 @@ clean:
 
 fclean: clean
 	rm -f $(CLIENT) $(SERVER)
+
+re: fclean all
