@@ -1,8 +1,10 @@
 #ifndef CLIENT_H
 # define CLIENT_H
 
-# include <protocol.h>
-# include <stdlib.h>
+# include	<protocol.h>
+# include	<status.h>
+
+# include	<stdlib.h>
 
 # define USAGE		"%s host [ port ]"
 
@@ -29,16 +31,6 @@ typedef struct	s_cmd
 	char		*help;
 	char		*arg_help;
 }				t_cmd;
-
-/*
-**	status.c
-*/
-
-int				usage_error(char **av);
-int				info(char *fmt, ...);
-int				error(int ret, char *fmt, ...);
-int				failure(t_request *req);
-int				success(t_request *req);
 
 /*
 **	init.c

@@ -1,3 +1,6 @@
+#ifndef	PROTOCOL_H
+#define	PROTOCOL_H
+
 #include <stdlib.h>
 
 /*
@@ -17,3 +20,5 @@ typedef struct	s_request
 	char		**args;
 	size_t		code;
 }				t_request;
+
+#endif
