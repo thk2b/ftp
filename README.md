@@ -56,17 +56,17 @@ Commands map user input to an entry in the protocol table.
 On the client, handlers are functions that take a specifc command and carry out the communication with the server.
 There is one handler per protocol entry.
 
-1 - find protocol entry
+1- find protocol entry
 
-2 - validate arguments (verify that files exist, have permissions...)
+2- validate arguments (verify that files exist, have permissions...)
 
-3 - send to server over the control connection
+3- send to server over the control connection
 
-4 - wait for reply
+4- wait for reply
 
-5 - process data over the data connection, if applicable
+5- process data over the data connection, if applicable
 
-6 - return status
+6- return status
 
 ### server
 
@@ -80,13 +80,13 @@ There is one handler per protocol entry.
 
 The controller reads a request from the control connection and finds the apropriate handler, which follows these steps.
 
-1 - validate arguments
+1- validate arguments
 
-2 - if applicable, open data connection, write to control connection (status 1xy)
+2- if applicable, open data connection, write to control connection (status 1xy)
 
-3 - if applicable, process data over the data connection
+3- if applicable, process data over the data connection
 
-4 - if applicable, write to control connection (2xy)
+4- if applicable, write to control connection (2xy)
 
-5 - close data connection
+5- close data connection
 
