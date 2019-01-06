@@ -5,25 +5,24 @@
 #include	<string.h>
 #include	<stdio.h>
 
-static int	init_request(t_request_ctx *req, char **cmd)
+static int	init_request(t_request_ctx *req)
 {
 	ssize_t		i;
 	t_cmd		*cmd_ref;
 	t_request	*req_ref;
 
 	i = -1;
-	if (cmd == NULL || cmd[0] == NULL)
+	if (req->args == NULL || req->args[0] == NULL)
 		return (1);
-	req->args = cmd;
-	if ((cmd_ref = find_command(cmd[0], &i)) == NULL)
-		return (unknown_cmd_error(cmd));
+	if ((cmd_ref = find_command(req->args[0], &i)) == NULL)
+		return (unknown_cmd_error(req->args));
 	req->rid = i;
 	if ((req_ref = find_request(i)) == NULL)
 		return (1);
-	if (validate_arguments(cmd + 1, req_ref))
-		return (bad_usage_error(cmd, cmd_ref));
-	free(cmd[0]);
-	cmd[0] = strdup(req_ref->name);
+	if (validate_arguments(req->args + 1, req_ref))
+		return (bad_usage_error(req->args, cmd_ref));
+	free(req->args[0]);
+	req->args[0] = strdup(req_ref->name);
 	return (0);
 }
 
@@ -43,7 +42,7 @@ int			get_request(t_request_ctx *req, int fd)
 	req->args = cmd;
 	if (cmd == NULL)
 		return (error(errno, "strsplit"));
-	if (init_request(req, cmd) == 0)
+	if (init_request(req) == 0)
 		return (0);
 	ft_strvdel(cmd);
 	return (1);

@@ -29,6 +29,7 @@ int			run(int ccon)
 	dcon = -1;
 	while (go)
 	{
+		errno = 0;
 		if (get_request(&req, 0))
 			continue ;
 		go = g_protocol[req.rid].fn(ccon, &dcon, &req);

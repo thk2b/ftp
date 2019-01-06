@@ -17,6 +17,7 @@ int			controller(int ccon)
 	dcon = -1;
 	while (go)
 	{
+		errno = 0;
 		if ((status = get_request(&req, ccon)) == -1)
 			break ;
 		if (status != 0)
