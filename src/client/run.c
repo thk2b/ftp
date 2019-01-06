@@ -1,5 +1,20 @@
 #include	<client.h>
 #include	<libft.h>
+#include	<get_next_line.h>
+#include	<errno.h>
+#include	<string.h>
+#include	<stdio.h>
+
+static int	accept_greeting(int conn)
+{
+	char	*line;
+	int		status;
+
+	if ((status = get_next_line(conn, &line)) == -1)
+		return (error(errno, "get_next_line"));
+	puts(line);
+	return (0);
+}
 
 int			run(int ccon)
 {
@@ -8,6 +23,8 @@ int			run(int ccon)
 	int					go;
 	int					dcon;
 
+	if (accept_greeting(ccon))
+		return (1);
 	go = 1;
 	dcon = -1;
 	while (go)

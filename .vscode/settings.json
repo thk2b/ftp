@@ -13,6 +13,8 @@
 		"string.h": "c",
 		"lib.h": "c",
 		"ios": "c",
-		"client.h": "c"
+		"client.h": "c",
+		"libft.h": "c",
+		"printf.h": "c"
 	}
 }

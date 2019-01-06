@@ -20,6 +20,20 @@ typedef struct	s_opts
 }				t_opts;
 
 /*
+**	responses.c
+**		response codes and messages
+*/
+
+typedef struct	s_response
+{
+	int			code;
+	size_t		message_len;
+	char		*message;
+}				t_response;
+
+t_response		*find_response(int code);
+
+/*
 **	init.c
 **		initialize a listening socket
 */
@@ -41,13 +55,19 @@ int				run(int lcon);
 int				controller(int ccon);
 
 /*
+**	send_response.c
+*/
+
+int			send_response(int code, int con);
+
+/*
 **	status.c
 */
 
-int					usage_error(char *usage, char **av);
-int					info(char *fmt, ...);
-int					error(int ret, char *fmt, ...);
-int					failure(t_request *req);
-int					success(t_request *req);
+int				usage_error(char *usage, char **av);
+int				info(char *fmt, ...);
+int				error(int ret, char *fmt, ...);
+int				failure(t_request *req);
+int				success(t_request *req);
 
 #endif
