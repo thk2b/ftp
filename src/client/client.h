@@ -29,10 +29,11 @@ typedef struct		s_opts
 
 typedef struct		s_cmd
 {
-	char			*name;
-	char			*help;
-	char			*arg_help;
-}					t_cmd;
+	enum e_request_id	rid;
+	char				*name;
+	char				*help;
+	char				*arg_help;
+}						t_cmd;
 
 t_cmd				*find_command(char *name, ssize_t *i);
 int					unknown_cmd_error(char **cmd);

@@ -3,19 +3,19 @@
 #include				<string.h>
 
 t_request				g_protocol[] = {
-	{ "QUIT"	, {0, 0}	, quit_handler	},
-	{ "LIST"	, {0, 1}	, list_handler	},
-	{ "CWD"		, {0, 1}	, cwd_handler	},
-	{ "PWD"		, {0, 0}	, pwd_handler	},
-	{ "RETR"	, {1, 2}	, retr_handler	},
-	{ "STOR"	, {1, 2}	, stor_handler	},
-	{ "QUIT"	, {0, 0}	, quit_handler	},
-	{ NULL		, {0, 0}	, NULL			}
+	{ RID_QUIT	, "QUIT"	, {0, 0}	, quit_handler	},
+	{ RID_LIST	, "LIST"	, {0, 1}	, list_handler	},
+	{ RID_CWD	, "CWD"		, {0, 1}	, cwd_handler	},
+	{ RID_PWD	, "PWD"		, {0, 0}	, pwd_handler	},
+	{ RID_RETR	, "RETR"	, {1, 2}	, retr_handler	},
+	{ RID_STOR	, "STOR"	, {1, 2}	, stor_handler	},
+	{ MAX_RID	, NULL		, {0, 0}	, NULL			}
 };
 
 t_request				*find_request(ssize_t i)
 {
-	// TODO: validate index
+	if (i < 0 || i > MAX_RID)
+		return (NULL);
 	return (g_protocol + i);
 }
 

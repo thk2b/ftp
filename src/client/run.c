@@ -15,7 +15,7 @@ int			run(int ccon)
 		if (get_request(&req, 0))
 			go = 1 ;
 		else
-			go = g_protocol[req.code].fn(ccon, &dcon, &req);
+			go = g_protocol[req.rid].fn(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
 	return (0);

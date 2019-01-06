@@ -22,7 +22,7 @@ static int	init_request(t_request_ctx *req, char **cmd)
 	free(cmd[0]);
 	cmd[0] = strdup(req_ref->name);
 	req->args = cmd;
-	req->code = i;
+	req->rid = i;
 	return (0);
 }
 

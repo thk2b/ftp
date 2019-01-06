@@ -4,19 +4,30 @@
 #include		<sys/types.h>
 #include		<stdlib.h>
 
+enum			e_request_id {
+	RID_QUIT,
+	RID_LIST,
+	RID_CWD,
+	RID_PWD,
+	RID_RETR,
+	RID_STOR,
+	MAX_RID
+};
+
 /*
 **	verb and argument requirement of a request
 */
 typedef struct	s_request_ctx
 {
-	char		**args;
-	size_t		code;
+	char				**args;
+	enum e_request_id	rid;
 }				t_request_ctx;
 
 typedef int			(*t_request_handler_fn)(int ccon, int *dcon, t_request_ctx *req);
 
 typedef struct	s_request
 {
+	enum e_request_id		rid;
 	char					*name;
 	size_t					arg_num[2];
 	t_request_handler_fn	fn;
