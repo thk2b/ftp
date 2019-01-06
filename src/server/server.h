@@ -34,6 +34,13 @@ int				init(int *lconp, t_opts *opts);
 int				run(int lcon);
 
 /*
+**	controller.c
+**		manages a connection with a specific client
+*/
+
+int				controller(int ccon);
+
+/*
 **	status.c
 */
 
