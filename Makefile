@@ -7,7 +7,9 @@ SHARED_SRC = $(addprefix src/, protocol.c status.c)
 SHARED_INC = -I src -I src/libft/includes
 
 CLIENT_INC = $(SHARED_INC) -I src/client
-CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, commands.c init.c get_request.c run.c main.c)
+CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, commands.c init.c get_request.c run.c main.c\
+	$(addprefix handlers/, index.c )\
+)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 SERVER_INC = $(SHARED_INC) -I src/server

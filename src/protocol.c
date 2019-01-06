@@ -3,17 +3,16 @@
 #include			<string.h>
 
 t_protocol_entry	g_protocol[] = {
-	{"QUIT",	{0, 0}},
-	{"LIST",	{0, 1}},
-	{"CWD",		{0, 1}},
-	{"PWD",		{0, 0}},
-	{"RETR",	{1, 2}},
-	{"STOR",	{1, 2}},
-	{"QUIT",	{0, 0}},
-	{NULL,		{0, 0}}
+	{ "QUIT"	, {0, 0}	},
+	{ "LIST"	, {0, 1}	},
+	{ "CWD"		, {0, 1}	},
+	{ "PWD"		, {0, 0}	},
+	{ "RETR"	, {1, 2}	},
+	{ "STOR"	, {1, 2}	},
+	{ "QUIT"	, {0, 0}	},
+	{ NULL		, {0, 0}	}
 };
 
-#include <printf.h>
 int					validate_arguments(size_t i, char **cmd)
 {
 	size_t	n;

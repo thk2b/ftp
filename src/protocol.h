@@ -1,15 +1,15 @@
 #ifndef	PROTOCOL_H
 #define	PROTOCOL_H
 
-#include <stdlib.h>
+#include		<stdlib.h>
 
 /*
 **	verb and argument requirement of a request
 */
 typedef struct	s_protocol_entry
 {
-	char	*name;
-	size_t	arg_num[2];
+	char		*name;
+	size_t		arg_num[2];
 }				t_protocol_entry;
 
 /*

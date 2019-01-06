@@ -1,7 +1,7 @@
-#ifndef		STATUS_H
-# define	STATUS_H
+#ifndef STATUS_H
+# define STATUS_H
 
-#include	<protocol.h>
+#include		<protocol.h>
 
 /*
 **	status.c
