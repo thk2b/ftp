@@ -12,6 +12,7 @@
 		"unistd.h": "c",
 		"string.h": "c",
 		"lib.h": "c",
-		"ios": "c"
+		"ios": "c",
+		"client.h": "c"
 	}
 }

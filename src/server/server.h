@@ -5,7 +5,6 @@
 # define	BACKLOG		1024
 
 # include	<protocol.h>
-# include	<status.h>
 
 # include	<stdlib.h>
 
@@ -33,5 +32,15 @@ int				init(int *lconp, t_opts *opts);
 */
 
 int				run(int lcon);
+
+/*
+**	status.c
+*/
+
+int					usage_error(char *usage, char **av);
+int					info(char *fmt, ...);
+int					error(int ret, char *fmt, ...);
+int					failure(t_request *req);
+int					success(t_request *req);
 
 #endif

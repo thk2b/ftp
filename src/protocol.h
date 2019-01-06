@@ -45,6 +45,5 @@ int				cwd_handler(int ccon, int *dcon, t_request_ctx *req);
 int				pwd_handler(int ccon, int *dcon, t_request_ctx *req);
 int				retr_handler(int ccon, int *dcon, t_request_ctx *req);
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req);
-int				quit_handler(int ccon, int *dcon, t_request_ctx *req);
 
 #endif
