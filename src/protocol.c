@@ -19,6 +19,20 @@ t_request				*find_request(ssize_t i)
 	return (g_protocol + i);
 }
 
+t_request				*find_request_by_name(char *name)
+{
+	t_request	*req;
+
+	req = g_protocol;
+	while (req->name)
+	{
+		if (strcmp(req->name, name) == 0)
+			return (req);
+		req++;
+	}
+	return (NULL);
+}
+
 int						validate_arguments(char **cmd, t_request *req_ref)
 {
 	size_t	n;

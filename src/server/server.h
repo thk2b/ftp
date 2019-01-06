@@ -55,10 +55,16 @@ int				run(int lcon);
 int				controller(int ccon);
 
 /*
+**	get_request.c
+*/
+
+int				get_request(t_request_ctx *req, int ccon);
+
+/*
 **	send_response.c
 */
 
-int			send_response(int code, int con);
+int				send_response(int code, int con);
 
 /*
 **	status.c
