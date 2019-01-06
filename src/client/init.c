@@ -3,6 +3,7 @@
 #include	<errno.h>
 #include	<sys/socket.h>
 #include	<arpa/inet.h>
+#include	<stdio.h>
 
 /*
 **	establish the control connection

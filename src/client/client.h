@@ -2,6 +2,8 @@
 # define CLIENT_H
 
 # define USAGE		"%s host [ port ]"
+# define PROMPT		"ftp> "
+# define PROMPT_LEN	5
 
 # include			<protocol.h>
 # include			<sys/types.h>

@@ -13,9 +13,8 @@ int			run(int ccon)
 	while (go)
 	{
 		if (get_request(&req, 0))
-			go = 1 ;
-		else
-			go = g_protocol[req.rid].fn(ccon, &dcon, &req);
+			continue ;
+		go = g_protocol[req.rid].fn(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
 	return (0);
