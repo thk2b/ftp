@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
 t_cmd	g_commands[] = {
 	{ "quit"	, "close the connection and exit"				, NULL								},
 	{ "ls"		, "list files on the server"					, "%s [ path = ./]"					},
@@ -23,21 +22,24 @@ int		unknown_cmd_error(char **cmd)
 	return (1);
 }
 
-int		bad_usage_error(char **cmd, size_t i)
+int		bad_usage_error(char **cmd, t_cmd *cmd_ref)
 {
-	usage_error(g_commands[i].arg_help, cmd);
+	usage_error(cmd_ref->arg_help, cmd);
 	return (1);
 }
 
-ssize_t	find_command(char *name)
+t_cmd	*find_command(char *name, ssize_t *p)
 {
 	ssize_t	i;
 
 	i = 0;
-	while (g_commands[i].name)
-		if (strcmp(g_commands[i].name, name) == 0)
-			return (i);
-		else
-			i++;
-	return (-1);
+	while (g_commands[i].name && strcmp(g_commands[i].name, name))
+		i++;
+	if (g_commands[i].name)
+	{
+		*p = i;
+		return (g_commands + i);
+	}
+	*p = -1;
+	return (NULL);
 }

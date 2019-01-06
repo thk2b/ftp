@@ -1,8 +1,8 @@
-#include			<protocol.h>
-#include			<libft.h>
-#include			<string.h>
+#include				<protocol.h>
+#include				<libft.h>
+#include				<string.h>
 
-t_request	g_protocol[] = {
+t_request				g_protocol[] = {
 	{ "QUIT"	, {0, 0}	, quit_handler	},
 	{ "LIST"	, {0, 1}	, list_handler	},
 	{ "CWD"		, {0, 1}	, cwd_handler	},
@@ -13,12 +13,13 @@ t_request	g_protocol[] = {
 	{ NULL		, {0, 0}	, NULL			}
 };
 
-t_request_handler_fn	find_handler(t_request_ctx *req)
+t_request				*find_request(ssize_t i)
 {
-	return (g_protocol[req->code].fn);
+	// TODO: validate index
+	return (g_protocol + i);
 }
 
-int					validate_arguments(size_t i, char **cmd)
+int						validate_arguments(char **cmd, t_request *req_ref)
 {
 	size_t	n;
 
@@ -26,7 +27,7 @@ int					validate_arguments(size_t i, char **cmd)
 		n = 0;
 	else
 		n = ft_strv_len(cmd);
-	if (n < g_protocol[i].arg_num[0] || n > g_protocol[i].arg_num[1])
+	if (n < req_ref->arg_num[0] || n > req_ref->arg_num[1])
 		return (1);
 	return (0);
 }

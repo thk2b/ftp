@@ -3,23 +3,20 @@
 
 int			run(int ccon)
 {
+	extern t_request	g_protocol[];
+	t_request_ctx		req;
 	int					go;
 	int					dcon;
-	t_request			req;
-	t_cmd_handler_fn	handler;
 
 	go = 1;
 	dcon = -1;
 	while (go)
 	{
 		if (get_request(&req, 0))
-			continue ;
-		if ((handler = find_handler(&req)))
-			go = handler(ccon, &dcon, &req);
+			go = 1 ;
 		else
-			go = 1;
+			go = g_protocol[req.code].fn(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
-	(void)ccon;
 	return (0);
 }

@@ -4,36 +4,29 @@
 #include	<errno.h>
 #include	<string.h>
 
-static int	init_req(t_request *req, char **cmd)
+static int	init_request(t_request_ctx *req, char **cmd)
 {
-	ssize_t					cmd_index;
-	extern t_protocol_entry	g_protocol[];
+	ssize_t		i;
+	t_cmd		*cmd_ref;
+	t_request	*req_ref;
 
+	i = -1;
 	if (cmd == NULL || cmd[0] == NULL)
 		return (1);
-	if ((cmd_index = find_command(cmd[0])) == -1)
+	if ((cmd_ref = find_command(cmd[0], &i)) == NULL)
 		return (unknown_cmd_error(cmd));
-	req->code = (size_t)cmd_index;
-	if (validate_arguments(req->code, cmd + 1))
-		return (bad_usage_error(cmd, cmd_index));
-	req->args = cmd;
-	return (0);
-}
-
-static int	new_exit_request(t_request *req)
-{
-	extern t_protocol_entry	g_protocol[];
-	char					*args[2];
-
-	req->code = 0;
-	args[0] = strdup(g_protocol[req->code].name);
-	args[1] = NULL;
-	if ((req->args = ft_strv_dup((char**)args)) == NULL)
+	if ((req_ref = find_request(i)) == NULL)
 		return (1);
+	if (validate_arguments(cmd + 1, req_ref))
+		return (bad_usage_error(cmd, cmd_ref));
+	free(cmd[0]);
+	cmd[0] = strdup(req_ref->name);
+	req->args = cmd;
+	req->code = i;
 	return (0);
 }
 
-int			get_request(t_request *req, int fd)
+int			get_request(t_request_ctx *req, int fd)
 {
 	int		status;
 	char	*line;
@@ -42,17 +35,10 @@ int			get_request(t_request *req, int fd)
 	if ((status = get_next_line(fd, &line)) == -1)
 		return (error(errno, "get_next_line"));
 	if (status == 0)
-		return (new_exit_request(req));
-	if ((cmd = ft_strsplit(line, ' ')) == NULL)
-	{
-		free(line);
-		return (error(errno, "strsplit"));
-	}
+		line = ft_strdup("exit");
+	cmd = ft_strsplit(line, ' ');
 	free(line);
-	if (init_req(req, cmd))
-	{
-		ft_strvdel(cmd);
-		return (1);
-	}
-	return (0);
+	if (cmd == NULL)
+		return (error(errno, "strsplit"));
+	return (init_request(req, cmd));
 }

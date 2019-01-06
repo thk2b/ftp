@@ -34,30 +34,9 @@ typedef struct		s_cmd
 	char			*arg_help;
 }					t_cmd;
 
-ssize_t				find_command(char *name);
+t_cmd				*find_command(char *name, ssize_t *i);
 int					unknown_cmd_error(char **cmd);
-int					bad_usage_error(char **cmd, size_t i);
-
-/*
-**	command handler
-**		carries out a command
-*/
-
-// typedef int			(*t_cmd_handler_fn)(int ccon, int *dcon, t_request *req);
-// typedef struct		s_cmd_handler
-// {
-// 	char				*name;
-// 	t_cmd_handler_fn	fn;
-// }					t_cmd_handler;
-
-// t_cmd_handler_fn	find_handler(t_request *req);
-// int					quit_handler(int ccon, int *dcon, t_request *req);
-// int					list_handler(int ccon, int *dcon, t_request *req);
-// int					cwd_handler(int ccon, int *dcon, t_request *req);
-// int					pwd_handler(int ccon, int *dcon, t_request *req);
-// int					retr_handler(int ccon, int *dcon, t_request *req);
-// int					stor_handler(int ccon, int *dcon, t_request *req);
-// int					quit_handler(int ccon, int *dcon, t_request *req);
+int					bad_usage_error(char **cmd, t_cmd *cmd_ref);
 
 /*
 **	init.c
@@ -78,6 +57,6 @@ int					run(int ccon);
 **		read from fd, parse into a request
 */
 
-int					get_request(t_request *req, int fd);
+int					get_request(t_request_ctx *req, int fd);
 
 #endif
