@@ -4,8 +4,6 @@
 # define USAGE		"%s host [ port ]"
 
 # include			<protocol.h>
-# include			<status.h>
-
 # include			<sys/types.h>
 # include			<stdlib.h>
 
@@ -59,5 +57,15 @@ int					run(int ccon);
 */
 
 int					get_request(t_request_ctx *req, int fd);
+
+/*
+**	status.c
+*/
+
+int					usage_error(char *usage, char **av);
+int					info(char *fmt, ...);
+int					error(int ret, char *fmt, ...);
+int					failure(t_request *req);
+int					success(t_request *req);
 
 #endif

@@ -23,7 +23,7 @@ typedef struct	s_request_ctx
 	enum e_request_id	rid;
 }				t_request_ctx;
 
-typedef int			(*t_request_handler_fn)(int ccon, int *dcon, t_request_ctx *req);
+typedef int		(*t_request_handler_fn)(int ccon, int *dcon, t_request_ctx *req);
 
 typedef struct	s_request
 {

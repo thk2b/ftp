@@ -3,11 +3,11 @@ SERVER = server
 
 LIB = src/libft/libft.a
 
-SHARED_SRC = $(addprefix src/, protocol.c status.c)
+SHARED_SRC = $(addprefix src/, protocol.c)
 SHARED_INC = -I src -I src/libft/includes
 
 CLIENT_INC = $(SHARED_INC) -I src/client
-CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, commands.c init.c get_request.c run.c main.c\
+CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, commands.c status.c init.c get_request.c run.c main.c\
 	$(addprefix handlers/, )\
 )
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
