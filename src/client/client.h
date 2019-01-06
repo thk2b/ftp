@@ -3,6 +3,7 @@
 
 # define USAGE		"%s host [ port ]"
 # define PROMPT		"ftp> "
+# define REV_PROMPT	"<ftp "
 # define PROMPT_LEN	5
 
 # include			<protocol.h>
@@ -54,11 +55,25 @@ int					init(int *cconp, t_opts *opts);
 int					run(int ccon);
 
 /*
-**	get_req.c
+**	get_request.c
 **		read from fd, parse into a request
 */
 
 int					get_request(t_request_ctx *req, int fd);
+
+/*
+**	get_response.c
+**		read and parse response from the server
+*/
+
+int					send_response(int ccon);
+
+/*
+**	get_response.c
+**		read and parse response from the server
+*/
+
+int					get_response(int ccon);
 
 /*
 **	status.c
