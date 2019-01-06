@@ -4,6 +4,16 @@
 #include	<unistd.h>
 #include	<sys/socket.h>
 #include	<arpa/inet.h>
+#include	<signal.h>
+
+static void	sigchld(int sig)
+{
+	(void)sig;
+	while (waitpid(-1, NULL, WNOHANG) > 0)
+	{
+		info("child process terminated");
+	}
+}
 
 int			run(int lcon)
 {
@@ -12,6 +22,7 @@ int			run(int lcon)
 	socklen_t			len;
 	pid_t				pid;
 
+	signal(SIGCHLD, sigchld);
 	len = sizeof(struct sockaddr_in);
 	while ((conn = accept(lcon, (struct sockaddr*)&addr, &len)) > 0)
 	{
