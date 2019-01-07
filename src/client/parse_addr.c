@@ -29,20 +29,21 @@ static int	parse_ip(struct in_addr *addr, char **data)
 
 static int	parse_port(in_port_t *portp, char **data)
 {
-	char	*s;
-	char		a;
-	char		b;
+	char			*s;
+	unsigned char	port[2];
 
 	s = *data;
 	if (!isnumber(*s))
 		return (1);
-	a = (char)atoi(s);
+	port[0] = (unsigned char)atoi(s);
 	if ((s = strchr(s, ',')) == NULL)
 		return (1);
 	if (!isnumber(*++s))
 		return (1);
-	b = (char)atoi(s);
-	*portp = htons(a * 256 + b);
+	port[1] = (unsigned char)atoi(s);
+	*portp = port[0] * 256 + port[1];
+	// *portp = htons(port[0] * 256 + port[1]);
+	// printf("%u %u", port[0], port[1]);
 	return (0);
 }
 

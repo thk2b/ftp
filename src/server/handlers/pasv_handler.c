@@ -9,6 +9,7 @@
 static int	init_passive_data_connection(int ccon)
 {
 	struct sockaddr_in	addr;
+	socklen_t			len;
 	int					fd;
 	char				buf[26] = {0};
 
@@ -21,6 +22,9 @@ static int	init_passive_data_connection(int ccon)
 		return (error(-1, "bind"));
 	if (listen(fd, 0) < 0)
 		return (error(-1, "listen"));
+	len = sizeof(struct sockaddr_in);
+	if (getsockname(fd, (struct sockaddr*)&addr, &len) < 0)
+		return (error(errno, "gesockname"));
 	info("opened data connection at %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (format_addr((char*)buf, &addr))
 		return (1);

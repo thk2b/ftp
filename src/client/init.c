@@ -50,6 +50,7 @@ int			init_data_connection(int ccon, int *dcon)
 		return (info("invalid address"));
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(errno, "socket"));
+	info("attempting to connect to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (connect(fd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) < 0)
 		return (error(errno, "connect"));
 	*dcon = fd;
