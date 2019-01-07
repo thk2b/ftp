@@ -7,7 +7,7 @@
 # include	<protocol.h>
 
 # include	<stdlib.h>
-
+# include	<arpa/inet.h>
 
 /*
 **	options
@@ -65,6 +65,7 @@ int				get_request(t_request_ctx *req, int ccon);
 */
 
 int				send_response(int code, int con);
+int				send_response_data(int code, int con, char *data);
 
 /*
 **	status.c
@@ -75,5 +76,10 @@ int				info(char *fmt, ...);
 int				error(int ret, char *fmt, ...);
 int				failure(t_request *req);
 int				success(t_request *req);
+
+/*
+**	format_addr.c
+*/
+int				format_addr(char *buf, struct sockaddr_in *addr);
 
 #endif
