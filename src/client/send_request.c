@@ -2,6 +2,7 @@
 #include	<string.h>
 #include	<errno.h>
 #include	<unistd.h>
+#include	<stdio.h>
 
 int			send_request(int ccon, t_request_ctx *req)
 {
@@ -12,8 +13,8 @@ int			send_request(int ccon, t_request_ctx *req)
 	while (req->args[i])
 	{
 		len = strlen(req->args[i]);
-		if (write(ccon, req->args[i], len) != (unsigned)len)
-			return (error(errno, "write"));
+		if (dprintf(ccon, "%s ", req->args[i]) != (int)len + 1)
+			return (error(errno, "dprintf"));
 		i++;
 	}
 	if (write(ccon, "\r\n", 2) != 2)

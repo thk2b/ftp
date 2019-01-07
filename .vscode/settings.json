@@ -17,6 +17,8 @@
 		"libft.h": "c",
 		"printf.h": "c",
 		"ctype.h": "c",
-		"socket.h": "c"
+		"socket.h": "c",
+		"fcntl.h": "c",
+		"ostream": "c"
 	}
 }

@@ -2,11 +2,16 @@
 
 t_response	g_responses[] = {
 	{ 0		, 9		, "Undefined"							},
+	{ 150	, 32	, "File OK, opening data connection"	},
+	{ 125	, 29	, "File OK, data connection open"		},
 	{ 220	, 13	, "Service ready"						},
 	{ 221	, 34	, "Service closing control connection"	},
+	{ 225	, 23	, "Closing data connection"				},
+	{ 226	, 36	, "Closing data connection, transfer OK"},
 	{ 227	, 21	, "Entering passive mode"				},
 	{ 500	, 15	, "Invalid command"						},
 	{ 501	, 18	, "Invalid parameters"					},
+	{ 550	, 16	, "Action not taken"					},
 	{ -1	, 0		, NULL									}
 };
 

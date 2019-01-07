@@ -5,6 +5,8 @@
 # define	BACKLOG		1024
 # define	PUBLIC_IP	"0.0.0.0"
 
+# define	BUF_SIZE	4069
+
 # include	<protocol.h>
 
 # include	<stdlib.h>
@@ -40,6 +42,7 @@ t_response		*find_response(int code);
 */
 
 int				init(int *lconp, t_opts *opts);
+int				init_passive_data_connection(int ccon);
 
 /*
 **	run.c

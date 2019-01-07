@@ -40,8 +40,6 @@ int			init_data_connection(int ccon, int *dcon)
 	int					fd;
 
 	*dcon = -1;
-	if (write(ccon, "PASV \r\n", 7) != 7)
-		return (error(errno, "write"));
 	if ((status = get_response(ccon, &data)) != 227)
 		return (info("failed to open data connection"));
 	status = parse_addr(&addr, &data);
@@ -50,6 +48,7 @@ int			init_data_connection(int ccon, int *dcon)
 		return (info("invalid address"));
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(errno, "socket"));
+	addr.sin_family = AF_INET;
 	info("attempting to connect to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (connect(fd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) < 0)
 		return (error(errno, "connect"));
