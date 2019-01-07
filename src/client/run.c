@@ -2,7 +2,7 @@
 #include	<libft.h>
 #include	<errno.h>
 #include	<string.h>
-#include <stdio.h>
+#include	<stdio.h>
 
 int			run(int ccon)
 {
@@ -15,7 +15,7 @@ int			run(int ccon)
 	if (get_response(ccon) != 220)
 		status = 1;
 	dcon = -1;
-	while (status == 0)
+	while (status != -1)
 	{
 		errno = 0;
 		if (get_request(&req, 0))

@@ -16,7 +16,7 @@ int			controller(int ccon)
 		status = 1;
 	status = 0;
 	dcon = -1;
-	while (status == 0)
+	while (status != -1)
 	{
 		errno = 0;
 		if ((error_code = get_request(&req, ccon)) == -1)
