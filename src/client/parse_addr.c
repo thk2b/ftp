@@ -27,6 +27,7 @@ static int	parse_ip(struct in_addr *addr, char **data)
 	return (0);
 }
 
+#include <printf.h>
 static int	parse_port(in_port_t *portp, char **data)
 {
 	char			*s;
@@ -41,9 +42,9 @@ static int	parse_port(in_port_t *portp, char **data)
 	if (!isnumber(*++s))
 		return (1);
 	port[1] = (unsigned char)atoi(s);
-	*portp = port[0] * 256 + port[1];
-	// *portp = htons(port[0] * 256 + port[1]);
-	// printf("%u %u", port[0], port[1]);
+	// *portp = port[0] * 256 + port[1];
+	*portp = htons(port[0] * 256 + port[1]);
+	printf("%u", *portp);
 	return (0);
 }
 

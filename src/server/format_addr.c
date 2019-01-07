@@ -26,10 +26,9 @@ int	format_addr(char *buf, struct sockaddr_in *addr)
 		else
 			buf[bi++] = ip[i++];
 	}
-	// in_port_t p = htons((uint16_t)addr->sin_port);
-	// printf("%d\n", p);
-	port[0] = (unsigned char)(addr->sin_port / 256);
-	port[1] = (unsigned char)(addr->sin_port % 256);
+	uint16_t p = htons((uint16_t)addr->sin_port);
+	port[0] = (unsigned char)(p / 256);
+	port[1] = (unsigned char)(p % 256);
 	snprintf(buf + bi, 10, ",%d,%d)", port[0], port[1]);
 	buf[26] = '\0';
 	return (0);

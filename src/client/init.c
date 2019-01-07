@@ -53,6 +53,7 @@ int			init_data_connection(int ccon, int *dcon)
 	info("attempting to connect to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (connect(fd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) < 0)
 		return (error(errno, "connect"));
+	info("established data connection with %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	*dcon = fd;
 	return (0);
 }

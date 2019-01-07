@@ -3,6 +3,7 @@
 
 # define	USAGE		"%s [ port ]"
 # define	BACKLOG		1024
+# define	PUBLIC_IP	"0.0.0.0"
 
 # include	<protocol.h>
 
