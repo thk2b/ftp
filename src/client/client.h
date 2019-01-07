@@ -2,9 +2,10 @@
 # define CLIENT_H
 
 # define USAGE		"%s host [ port ]"
-# define PROMPT		"ftp> "
-# define REV_PROMPT	"<ftp "
-# define PROMPT_LEN	5
+# define PROMPT		" ftp>\t"
+# define REV_PROMPT	"<ftp\t"
+# define PROMPT_LEN	6
+# define BUF_SIZE	4096
 
 # include			<protocol.h>
 # include			<sys/types.h>
@@ -62,11 +63,11 @@ int					run(int ccon);
 int					get_request(t_request_ctx *req, int fd);
 
 /*
-**	get_response.c
-**		read and parse response from the server
+**	send_request.c
+**		send a response over the control connection
 */
 
-int					send_response(int ccon);
+int					send_request(int ccon, t_request_ctx *req);
 
 /*
 **	get_response.c

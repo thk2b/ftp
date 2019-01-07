@@ -36,7 +36,7 @@ int			get_request(t_request_ctx *req, int fd)
 	if ((status = get_next_line(fd, &line)) == -1)
 		return (error(errno, "get_next_line"));
 	if (status == 0)
-		line = ft_strdup("exit");
+		line = ft_strdup("quit");
 	cmd = ft_strsplit(line, ' ');
 	free(line);
 	req->args = cmd;

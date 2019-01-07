@@ -2,36 +2,29 @@
 #include	<libft.h>
 #include	<errno.h>
 #include	<string.h>
-
-// static int	accept_greeting(int conn)
-// {
-// 	char	*line;
-// 	int		status;
-
-// 	if ((status = get_next_line(conn, &line)) == -1)
-// 		return (error(errno, "get_next_line"));
-// 	puts(line);
-// 	return (0);
-// }
+#include <stdio.h>
 
 int			run(int ccon)
 {
 	extern t_request	g_protocol[];
 	t_request_ctx		req;
-	int					go;
+	int					status;
 	int					dcon;
 
+	status = 0;
 	if (get_response(ccon) != 220)
-		return (1);
-	go = 1;
+		status = 1;
 	dcon = -1;
-	while (go)
+	while (status == 0)
 	{
 		errno = 0;
 		if (get_request(&req, 0))
 			continue ;
-		go = g_protocol[req.rid].fn(ccon, &dcon, &req);
+		status = g_protocol[req.rid].fn(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
-	return (0);
+	close(ccon);
+	if (dcon >= 0)
+		close(dcon);
+	return (status == -1 ? 0 : status);
 }

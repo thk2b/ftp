@@ -28,6 +28,5 @@ int				main(int ac, char **av)
 	if ((status = init(&ccon, &opts)))
 		return (status);
 	status = run(ccon);
-	close(ccon);
 	return (status);
 }
