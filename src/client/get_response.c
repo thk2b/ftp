@@ -17,7 +17,7 @@ static int	get_status(char *s)
 	return (n);
 }
 
-int			get_response(int ccon)
+int			get_response(int ccon, char **data)
 {
 	char	*line;
 	int		status;
@@ -35,6 +35,9 @@ int			get_response(int ccon)
 		return (-1);
 	}
 	printf(REV_PROMPT "%s\n", line);
-	free(line);
+	if (data)
+		*data = line;
+	else
+		free(line);
 	return (status);
 }

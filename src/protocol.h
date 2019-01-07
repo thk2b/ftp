@@ -11,6 +11,7 @@ enum			e_request_id {
 	RID_PWD,
 	RID_RETR,
 	RID_STOR,
+	RID_PASV,
 	MAX_RID
 };
 
@@ -46,5 +47,6 @@ int				cwd_handler(int ccon, int *dcon, t_request_ctx *req);
 int				pwd_handler(int ccon, int *dcon, t_request_ctx *req);
 int				retr_handler(int ccon, int *dcon, t_request_ctx *req);
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req);
+int				pasv_handler(int ccon, int *dcon, t_request_ctx *req);
 
 #endif

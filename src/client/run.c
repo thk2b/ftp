@@ -12,7 +12,7 @@ int			run(int ccon)
 	int					dcon;
 
 	status = 0;
-	if (get_response(ccon) != 220)
+	if (get_response(ccon, NULL) != 220)
 		status = 1;
 	dcon = -1;
 	while (status != -1)

@@ -3,8 +3,8 @@
 
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
 {
-	(void)ccon;
-	(void)dcon;
 	(void)req;
+	if (*dcon == -1 && init_data_connection(ccon, dcon))
+		return (1);
 	return (1);
 }

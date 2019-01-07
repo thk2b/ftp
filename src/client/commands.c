@@ -9,7 +9,7 @@ t_cmd	g_commands[] = {
 	{ RID_CWD	, "cd"		, "change remote current working directory"		, "%s [ path = /]"					},
 	{ RID_PWD	, "pwd"		, "print the current working directory"			, NULL								},
 	{ RID_RETR	, "get"		, "retreive a remote file and save it locally"	, "%s remote_path [ local_path ]"	},
-	{ RID_QUIT	, "put"		, "transmit a local file and save it remotely"	, "%s local_path [ remote_path ]"	},
+	{ RID_STOR	, "put"		, "transmit a local file and save it remotely"	, "%s local_path [ remote_path ]"	},
 	{ MAX_RID	, NULL		, NULL											, NULL								}
 };
 
