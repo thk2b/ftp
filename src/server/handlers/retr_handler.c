@@ -6,7 +6,6 @@
 #include		<sys/stat.h>
 #include		<errno.h>
 #include		<sys/mman.h>
-#include <string.h>
 
 static int		write_file(int to, int fd, struct stat *sb)
 {

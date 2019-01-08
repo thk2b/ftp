@@ -10,6 +10,7 @@ t_response	g_responses[] = {
 	{ 226	, 36	, "Closing data connection, transfer OK"},
 	{ 227	, 21	, "Entering passive mode"				},
 	{ 250	, 26	, "Requested action completed"			},
+	{ 257	, 12	, "Path created"						},
 	{ 425	, 26	, "Can't open data connection"			},
 	{ 451	, 21	, "Internal server error"				},
 	{ 500	, 15	, "Invalid command"						},

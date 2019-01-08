@@ -3,8 +3,12 @@
 
 int				pwd_handler(int ccon, int *dcon, t_request_ctx *req)
 {
-	(void)ccon;
+	int		res_status;
 	(void)dcon;
-	(void)req;
-	return (1);
+
+	if (send_request(ccon, req))
+		return (1);
+	if ((res_status = get_response(ccon, NULL)))
+		return (1);
+	return (0);
 }
