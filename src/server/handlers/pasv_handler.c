@@ -15,6 +15,8 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	(void)req;
 	(void)ctx;
 	info("attempting to open data connection");
+	if (*dcon >= 0)
+		close(*dcon);
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(1, "socket"));
 	if ((fd = init_passive_data_connection(ccon, &fd)) < 0)

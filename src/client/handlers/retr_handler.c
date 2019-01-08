@@ -42,9 +42,7 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	if (status == 0 && (res_status = get_response(ccon, NULL)) <= 0)
 		status = 1;
 	if (res_status >= 400)
-		return (1);
-	// if (status == 0 && (res_status != 125 && res_status != 150 && res_status < 200))
-		// status = error(1, "invalid response from server");
+		status = 1;
 	if (status == 0 && res_status == 150)
 		status = init_data_connection(ccon, dcon);
 	if (status == 0)
