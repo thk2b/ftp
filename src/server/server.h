@@ -44,7 +44,7 @@ t_response		*find_response(int code);
 
 typedef struct	s_client
 {
-	struct sockaddr_in	*addr;
+	struct sockaddr_in	addr;
 	char				*pwd;
 }				t_client;
 
@@ -68,7 +68,7 @@ int				run(int lcon);
 **		manages a connection with a specific client
 */
 
-int				controller(int ccon);
+int				controller(int ccon, t_client *client);
 
 /*
 **	get_request.c

@@ -3,10 +3,10 @@
 #include	<errno.h>
 #include	<libft.h>
 #include	<stdio.h>
+#include	<string.h>
 
-int			controller(int ccon)
+int			controller(int ccon, t_client *client)
 {
-	t_client			client;
 	t_request_ctx		req;
 	int					error_code;
 	int					dcon;
@@ -26,7 +26,7 @@ int			controller(int ccon)
 			send_response(error_code, ccon);
 			continue ;
 		}
-		status = call_handler(ccon, &dcon, &req, &client);
+		status = call_handler(ccon, &dcon, &req, client);
 		ft_strvdel(req.args);
 	}
 	return (status);
