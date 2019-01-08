@@ -1,10 +1,11 @@
 #include	<client.h>
 #include	<unistd.h>
 
-int			pasv_handler(int ccon, int *dcon, t_request_ctx *req)
+int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	int	status;
 
+	(void)ctx;
 	if (*dcon == -1)
 		close(*dcon);
 	if (send_request(ccon, req))

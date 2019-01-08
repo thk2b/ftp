@@ -40,7 +40,7 @@ static int		do_retr(int ccon, int *dcon, t_request_ctx *req)
 	if (*dcon == -1)
 	{
 		if ((status = send_response(150, ccon)) == 0)
-			status = pasv_handler(ccon, dcon, NULL);
+			status = pasv_handler(ccon, dcon, NULL, NULL);
 		if (status)
 		{
 			close(fd);
@@ -52,11 +52,12 @@ static int		do_retr(int ccon, int *dcon, t_request_ctx *req)
 	return (status);
 }
 
-int				retr_handler(int ccon, int *dcon, t_request_ctx *req)
+int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {	
 	int		should_close_dcon;
 	int		response_status;
 
+	(void)ctx;
 	should_close_dcon = *dcon == -1;
 	response_status = do_retr(ccon, dcon, req);
 	if (should_close_dcon)

@@ -6,7 +6,7 @@
 
 int			controller(int ccon)
 {
-	extern t_request	g_protocol[];
+	t_client			client;
 	t_request_ctx		req;
 	int					error_code;
 	int					dcon;
@@ -26,7 +26,7 @@ int			controller(int ccon)
 			send_response(error_code, ccon);
 			continue ;
 		}
-		status = call_handler(ccon, &dcon, &req);
+		status = call_handler(ccon, &dcon, &req, &client);
 		ft_strvdel(req.args);
 	}
 	return (status);

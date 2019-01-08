@@ -34,12 +34,12 @@ t_request				*find_request_by_name(char *name)
 	return (NULL);
 }
 
-int						call_handler(int ccon, int *dcon, t_request_ctx *req)
+int						call_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	t_request	*req_ref;
 
 	if ((req_ref = find_request(req->rid)))
-		return (req_ref->fn(ccon, dcon, req));
+		return (req_ref->fn(ccon, dcon, req, ctx));
 	return (-1);
 }
 

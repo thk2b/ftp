@@ -24,13 +24,14 @@ static int		read_file(int from, int to)
 	return (0);
 }
 
-int				retr_handler(int ccon, int *dcon, t_request_ctx *req)
+int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	char		*filename;
 	int			fd;
 	int			res_status;
 	int			status;
 
+	(void)ctx;
 	filename = req->args[req->args[2] ? 2 : 1];
 	status = 0;
 	res_status = 0;
@@ -42,13 +43,13 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req)
 		status = 1;
 	if (res_status >= 400)
 		return (1);
-	if (status == 0 && (res_status != 125 && res_status != 150))
-		status = error(1, "invalid response from server");
+	// if (status == 0 && (res_status != 125 && res_status != 150 && res_status < 200))
+		// status = error(1, "invalid response from server");
 	if (status == 0 && res_status == 150)
 		status = init_data_connection(ccon, dcon);
 	if (status == 0)
 		read_file(*dcon, fd);
-	if (status == 0 && (res_status = get_response(ccon, NULL)) == 227)
+	if (res_status == 227 || (res_status < 200 && (res_status = get_response(ccon, NULL)) == 227))
 	{
 		close(*dcon);
 		*dcon = -1;

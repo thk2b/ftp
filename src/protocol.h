@@ -24,7 +24,7 @@ typedef struct	s_request_ctx
 	enum e_request_id	rid;
 }				t_request_ctx;
 
-typedef int		(*t_request_handler_fn)(int ccon, int *dcon, t_request_ctx *req);
+typedef int		(*t_request_handler_fn)(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 
 typedef struct	s_request
 {
@@ -37,17 +37,17 @@ typedef struct	s_request
 int				validate_arguments(char **cmd, t_request *req_ref);
 t_request		*find_request(enum e_request_id i);
 t_request		*find_request_by_name(char *name);
-int				call_handler(int ccon, int *dcon, t_request_ctx *req);
+int				call_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 
 /*
 **	request handlers
 */
-int				quit_handler(int ccon, int *dcon, t_request_ctx *req);
-int				list_handler(int ccon, int *dcon, t_request_ctx *req);
-int				cwd_handler(int ccon, int *dcon, t_request_ctx *req);
-int				pwd_handler(int ccon, int *dcon, t_request_ctx *req);
-int				retr_handler(int ccon, int *dcon, t_request_ctx *req);
-int				stor_handler(int ccon, int *dcon, t_request_ctx *req);
-int				pasv_handler(int ccon, int *dcon, t_request_ctx *req);
+int				quit_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				list_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				cwd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				pwd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 
 #endif

@@ -37,6 +37,18 @@ typedef struct	s_response
 t_response		*find_response(int code);
 
 /*
+**	client
+**		represents a currently connected client
+**		pwd is its virtual pwd
+*/
+
+typedef struct	s_client
+{
+	struct sockaddr_in	*addr;
+	char				*pwd;
+}				t_client;
+
+/*
 **	init.c
 **		initialize a listening socket
 */

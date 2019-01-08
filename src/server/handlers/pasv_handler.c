@@ -6,13 +6,14 @@
 #include	<stdio.h>
 #include	<unistd.h>
 
-int			pasv_handler(int ccon, int *dcon, t_request_ctx *req)
+int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	int					fd;
 	struct sockaddr_in	addr;
 	socklen_t			len;
 
 	(void)req;
+	(void)ctx;
 	info("attempting to open data connection");
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(1, "socket"));

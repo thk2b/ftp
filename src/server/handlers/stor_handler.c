@@ -32,7 +32,7 @@ static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 	status = 0;
 	if (*dcon == -1)
 	{
-		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL))
+		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL, NULL))
 			return (error(425, "couldn't setup data connection"));
 	}
 	else if (send_response(125, ccon))
@@ -45,11 +45,12 @@ static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 	return (status);
 }
 
-int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
+int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	int		should_close_dcon;
 	int		response_status;
 
+	(void)ctx;
 	should_close_dcon = *dcon == -1;
 	response_status = do_stor(ccon, dcon, req);
 	if (should_close_dcon)

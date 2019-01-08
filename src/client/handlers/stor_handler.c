@@ -23,13 +23,14 @@ static int		write_file(int to, int fd, struct stat *sb)
 	return (0);
 }
 
-int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
+int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	int			fd;
 	struct stat	sb;
 	int			res_status;
 	int			status;
 
+	(void)ctx;
 	status = 0;
 	if (stat(req->args[1], &sb) == -1)
 		return (error(1, "stat"));
