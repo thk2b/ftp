@@ -35,8 +35,9 @@ typedef struct	s_request
 }				t_request;
 
 int				validate_arguments(char **cmd, t_request *req_ref);
-t_request		*find_request(ssize_t i);
+t_request		*find_request(enum e_request_id i);
 t_request		*find_request_by_name(char *name);
+int				call_handler(int ccon, int *dcon, t_request_ctx *req);
 
 /*
 **	request handlers

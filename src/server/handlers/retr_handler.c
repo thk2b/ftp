@@ -11,6 +11,8 @@ static int		write_file(int to, int fd, struct stat *sb)
 {
 	void	*file;
 
+	if (sb->st_size == 0)
+		return (0);
 	if ((file = mmap(NULL, sb->st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return (error(1, "mmap"));
 	if (write(to, file, sb->st_size) != sb->st_size)

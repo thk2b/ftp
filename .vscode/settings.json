@@ -20,6 +20,7 @@
 		"socket.h": "c",
 		"fcntl.h": "c",
 		"ostream": "c",
-		"stdarg.h": "c"
+		"stdarg.h": "c",
+		"typeinfo": "c"
 	}
 }

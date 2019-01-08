@@ -10,6 +10,7 @@ static int		read_file(int from, int to)
 	char		buf[BUF_SIZE];
 	ssize_t		num_read;
 
+	info("reading data connection, creating file");
 	while ((num_read = read(from, buf, BUF_SIZE)) > 0)
 	{
 		if (write(to, buf, num_read) != num_read)
@@ -38,8 +39,7 @@ static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 		return (1);
 	if ((fd = open(req->args[req->args[2] ? 2 : 1], O_WRONLY | O_CREAT, 0775)) == -1)
 		status = error(550, "open");
-	info("reading data connection, creating file");
-	if (status)
+	if (status == 0)
 		status = read_file(*dcon, fd);
 	close(fd);
 	return (status);

@@ -13,9 +13,9 @@ t_request				g_protocol[] = {
 	{ MAX_RID	, NULL		, {0, 0}	, NULL			}
 };
 
-t_request				*find_request(ssize_t i)
+t_request				*find_request(enum e_request_id i)
 {
-	if (i < 0 || i > MAX_RID)
+	if (i >= MAX_RID)
 		return (NULL);
 	return (g_protocol + i);
 }
@@ -32,6 +32,15 @@ t_request				*find_request_by_name(char *name)
 		req++;
 	}
 	return (NULL);
+}
+
+int						call_handler(int ccon, int *dcon, t_request_ctx *req)
+{
+	t_request	*req_ref;
+
+	if ((req_ref = find_request(req->rid)))
+		return (req_ref->fn(ccon, dcon, req));
+	return (-1);
 }
 
 int						validate_arguments(char **cmd, t_request *req_ref)

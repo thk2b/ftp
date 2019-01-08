@@ -26,7 +26,7 @@ int			controller(int ccon)
 			send_response(error_code, ccon);
 			continue ;
 		}
-		status = g_protocol[req.rid].fn(ccon, &dcon, &req);
+		status = call_handler(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
 	return (status);

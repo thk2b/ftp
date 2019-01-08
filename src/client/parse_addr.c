@@ -44,7 +44,6 @@ static int	parse_port(in_port_t *portp, char **data)
 	port[1] = (unsigned char)atoi(s);
 	// *portp = port[0] * 256 + port[1];
 	*portp = htons(port[0] * 256 + port[1]);
-	printf("%u", *portp);
 	return (0);
 }
 
