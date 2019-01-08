@@ -18,7 +18,7 @@ static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 	}
 	else if (send_response(125, ccon))
 		return (1);
-	if ((fd = open(req->args[1], O_WRONLY | O_CREAT, 775)) == -1)
+	if ((fd = open(req->args[req->args[2] ? 2 : 1], O_WRONLY | O_CREAT, 0775)) == -1)
 		return (error(550, "open"));
 	info("reading data connection, creating file");
 	while ((num_read = read(*dcon, buf, BUF_SIZE)) > 0)
