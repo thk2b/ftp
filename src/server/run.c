@@ -7,10 +7,12 @@
 
 static void	sigchld(int sig)
 {
+	int	status;
+
 	(void)sig;
-	while (waitpid(-1, NULL, WNOHANG) > 0)
+	while (waitpid(-1, &status, WNOHANG) > 0)
 	{
-		info("child process terminated");
+		info("child process terminated with status %d", status);
 	}
 }
 
