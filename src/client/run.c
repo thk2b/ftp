@@ -7,6 +7,7 @@
 int			run(int ccon)
 {
 	extern t_request	g_protocol[];
+	extern t_cmd		g_commands[];
 	t_request_ctx		req;
 	int					status;
 	int					dcon;
@@ -20,7 +21,10 @@ int			run(int ccon)
 		errno = 0;
 		if (get_request(&req, 0))
 			continue ;
-		status = g_protocol[req.rid].fn(ccon, &dcon, &req);
+		if (req.args[1] && strcmp(req.args[1], "--help") == 0)
+			usage_error(g_commands[req.rid].help, &g_commands[req.rid].name);
+		else
+			status = g_protocol[req.rid].fn(ccon, &dcon, &req);
 		ft_strvdel(req.args);
 	}
 	close(ccon);
