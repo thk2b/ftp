@@ -5,7 +5,7 @@
 #include		<unistd.h>
 #include		<errno.h>
 
-int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
+static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 {
 	int			fd;
 	char		buf[BUF_SIZE];
@@ -19,19 +19,33 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
 	else if (send_response(125, ccon))
 		return (1);
 	if ((fd = open(req->args[1], O_WRONLY | O_CREAT, 775)) == -1)
-		return (error_conn(ccon, 550, errno, "open"));
+		return (error(550, "open"));
 	info("reading data connection, creating file");
 	while ((num_read = read(*dcon, buf, BUF_SIZE)) > 0)
 	{
 		if (write(fd, buf, num_read) != num_read)
-			return (error_conn(ccon, 550, errno, "write"));
+			return (error(550, "write"));
 		if (num_read != BUF_SIZE)
 			break ;
 	}
 	if (num_read == -1)
-		return (error_conn(ccon, 550, errno, "read"));
-	close(*dcon);
-	*dcon = -1;
-	send_response(226, ccon);
+		return (error(550, "read"));
 	return (0);
+}
+
+int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
+{
+	int		should_close_dcon;
+	int		response_status;
+
+	should_close_dcon = *dcon == -1;
+	response_status = do_stor(ccon, dcon, req);
+	if (should_close_dcon)
+	{
+		close(*dcon);
+		*dcon = -1;
+	}
+	if (response_status == 0)
+		return (send_response(should_close_dcon ? 226 : 250, ccon));
+	return (send_response(response_status, ccon));
 }

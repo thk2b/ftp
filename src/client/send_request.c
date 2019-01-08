@@ -4,6 +4,10 @@
 #include	<unistd.h>
 #include	<stdio.h>
 
+/*
+**	send a request to the server
+**		return 0 if success, errno on error.
+*/
 int			send_request(int ccon, t_request_ctx *req)
 {
 	size_t	i;

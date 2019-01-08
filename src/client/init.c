@@ -31,6 +31,7 @@ int			init(int *cconp, t_opts *opts)
 
 /*
 **	establish the data connection
+**		return 0 is successful, -1 failure, errno if error
 */
 int			init_data_connection(int ccon, int *dcon)
 {
@@ -41,7 +42,7 @@ int			init_data_connection(int ccon, int *dcon)
 
 	*dcon = -1;
 	if ((status = get_response(ccon, &data)) != 227)
-		return (info("failed to open data connection"));
+		return (error(-1, "failed to open data connection"));
 	status = parse_addr(&addr, &data);
 	free(data);
 	if (status)

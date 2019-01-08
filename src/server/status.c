@@ -31,7 +31,7 @@ int			error(int num, char *msg, ...)
 	va_start(args, msg);
 	dprintf(2, "ERROR:\t");
 	vdprintf(2, msg, args);
-	dprintf(2, ": [%d] %s", num, strerror(errno));
+	dprintf(2, ": [%d] %s", errno, strerror(errno));
 	dprintf(2, "\n");
 	va_end(args);
 	return (num);
