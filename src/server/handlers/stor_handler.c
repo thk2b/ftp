@@ -5,6 +5,7 @@
 #include		<unistd.h>
 #include		<errno.h>
 
+//TODO: send 451 instead of 550
 static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
 {
 	int			fd;

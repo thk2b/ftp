@@ -11,6 +11,7 @@ t_response	g_responses[] = {
 	{ 227	, 21	, "Entering passive mode"				},
 	{ 250	, 26	, "Requested action completed"			},
 	{ 425	, 26	, "Can't open data connection"			},
+	{ 451	, 21	, "Internal server error"				},
 	{ 500	, 15	, "Invalid command"						},
 	{ 501	, 18	, "Invalid parameters"					},
 	{ 550	, 16	, "Action not taken"					},

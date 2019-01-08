@@ -12,12 +12,12 @@ static int		write_file(int to, int fd, struct stat *sb)
 	void	*file;
 
 	if ((file = mmap(NULL, sb->st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (error(errno, "mmap"));
+		return (error(1, "mmap"));
 	if (write(to, file, sb->st_size) != sb->st_size)
-		return (error(errno, "write"));
+		return (error(1, "write"));
 	info("wrote file");
 	if (munmap(file, sb->st_size) == -1)
-		return (error(errno, "munmap"));
+		return (error(1, "munmap"));
 	return (0);
 }
 
@@ -38,13 +38,13 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
 	if ((send_request(ccon, req)))
 		return (1);
 	if ((res_status = get_response(ccon, NULL)) <= 0)
-		return (res_status);
+		return (1);
 	if (res_status != 125 && res_status != 150)
-		return (error(0, "invalid response from server"));
+		return (error(1, "invalid response from server"));
 	if (res_status == 150)
 		status = init_data_connection(ccon, dcon);
 	if (status == 0)
-		status = write_file(*dcon, fd, &sb);
+		write_file(*dcon, fd, &sb);
 	close(fd);
 	if (status == 0 && get_response(ccon, NULL) == 227)
 	{
