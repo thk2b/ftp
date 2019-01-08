@@ -78,8 +78,11 @@ int				send_response_data(int code, int con, char *data);
 int				usage_error(char *usage, char **av);
 int				info(char *fmt, ...);
 int				error(int ret, char *fmt, ...);
-int				failure(t_request *req);
-int				success(t_request *req);
+int				error_conn(int conn, int num, int ret, char *fmt, ...);
+int				success(char *fmt, ...);
+int				success_conn(int conn, int num);
+int				failure(int ret, char *fmt, ...);
+int				failure_conn(int ret, char *fmt, ...);
 
 /*
 **	format_addr.c

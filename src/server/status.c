@@ -1,3 +1,4 @@
+#include	<server.h>
 #include	<stdio.h>
 #include	<stdarg.h>
 #include	<string.h>
@@ -34,4 +35,18 @@ int			error(int num, char *msg, ...)
 	dprintf(2, "\n");
 	va_end(args);
 	return (num);
+}
+
+int			error_conn(int conn, int num, int ret, char *msg, ...)
+{
+	va_list		args;
+
+	send_response(num, conn);
+	va_start(args, msg);
+	dprintf(2, "ERROR:\t");
+	vdprintf(2, msg, args);
+	dprintf(2, ": [%d] %s", ret, strerror(errno));
+	dprintf(2, "\n");
+	va_end(args);
+	return (ret);
 }

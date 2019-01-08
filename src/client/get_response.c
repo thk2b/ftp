@@ -2,6 +2,7 @@
 #include	<get_next_line.h>
 #include	<stdio.h>
 #include	<errno.h>
+#include	<string.h>
 
 static int	get_status(char *s)
 {
@@ -21,19 +22,18 @@ int			get_response(int ccon, char **data)
 {
 	char	*line;
 	int		status;
+	char	*cr;
 
 	if ((status = get_next_line(ccon, &line)) != 1)
 	{
 		if (errno && errno != ECONNRESET)
 			return (error(errno, "get_next_line"));
-		info("connection closed");
-		return (-1);
+		return (error(0 , "connection closed"));
 	}
 	if ((status = get_status(line)) == -1)
-	{
-		info("invalid response");
-		return (-1);
-	}
+		error(0, "invalid response");
+	if ((cr = strchr(line, '\r')) != NULL)
+		*cr = '\0';
 	printf(REV_PROMPT "%s\n", line);
 	if (data)
 		*data = line;
