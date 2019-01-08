@@ -30,7 +30,7 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
 
 	status = 0;
 	if (stat(req->args[1], &sb) == -1)
-		return (error(errno, "stat"));
+		return (error(1, "stat"));
 	if (!S_ISREG(sb.st_mode))
 		return (error(1, "\"%s\" is not a regular file", req->args[1]));
 	if ((fd = open(req->args[1], O_RDONLY)) == -1)

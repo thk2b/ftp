@@ -6,6 +6,7 @@
 #include		<sys/stat.h>
 #include		<errno.h>
 #include		<sys/mman.h>
+#include <string.h>
 
 static int		write_file(int to, int fd, struct stat *sb)
 {
@@ -29,8 +30,10 @@ static int		do_retr(int ccon, int *dcon, t_request_ctx *req)
 	int			status;
 
 	filename = req->args[1];
-	if (stat(filename, &sb) == ENOENT)
-		return (error(550, "no such file"));
+	if (stat(filename, &sb) == -1)
+		return (error(550, "stat"));
+	if (!S_ISREG(sb.st_mode))
+		return (error(550, "\"%s\" is not a regular file", filename));
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (error(451, "open"));
 	if (*dcon == -1)

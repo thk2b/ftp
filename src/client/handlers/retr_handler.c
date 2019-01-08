@@ -34,13 +34,14 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req)
 	filename = req->args[req->args[2] ? 2 : 1];
 	status = 0;
 	res_status = 0;
+	if ((send_request(ccon, req)))
+		return (1);
 	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0775)) == -1)
 		return (error(1, "open %s", filename));
-	if ((send_request(ccon, req)))
-		status = 1;
 	if (status == 0 && (res_status = get_response(ccon, NULL)) <= 0)
 		status = 1;
-	info("[%d %d]\n", status, res_status);
+	if (res_status >= 400)
+		return (1);
 	if (status == 0 && (res_status != 125 && res_status != 150))
 		status = error(1, "invalid response from server");
 	if (status == 0 && res_status == 150)
