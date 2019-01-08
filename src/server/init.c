@@ -29,7 +29,7 @@ int			init(int *lconp, t_opts *opts)
 	return (0);
 }
 
-int			init_passive_data_connection(int ccon)
+int			init_passive_data_connection(int ccon, int *dcon)
 {
 	struct sockaddr_in	addr;
 	socklen_t			len;
@@ -37,11 +37,10 @@ int			init_passive_data_connection(int ccon)
 	char				buf[26] = {0};
 	int					reuse_addr;
 
-	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-		return (error(-1, "socket"));
+	fd = *dcon;
 	reuse_addr = 1;
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (void*)&reuse_addr, sizeof(int)))
-		return (error(errno, "setsockopt"));
+		return (error(-1, "setsockopt"));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = 0;
@@ -51,13 +50,13 @@ int			init_passive_data_connection(int ccon)
 		return (error(-1, "listen"));
 	len = sizeof(struct sockaddr_in);
 	if (getsockname(fd, (struct sockaddr*)&addr, &len) < 0)
-		return (error(errno, "gesockname"));
+		return (error(-1, "gesockname"));
 	if (inet_aton(PUBLIC_IP, &addr.sin_addr) != 1)
-		return (error(errno, "inet_atoi(PUBLIC_IP)"));
+		return (error(-1, "inet_atoi(PUBLIC_IP)"));
 	info("opened data connection at %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (format_addr((char*)buf, &addr))
-		return (1);
+		return (-1);
 	if (send_response_data(227, ccon, (char*)buf))
-		return (1);
+		return (-1);
 	return (fd);
 }

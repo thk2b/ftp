@@ -14,13 +14,19 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req)
 
 	(void)req;
 	info("attempting to open data connection");
-	if ((fd = init_passive_data_connection(ccon)) < 0)
+	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+		return (error(1, "socket"));
+	if ((fd = init_passive_data_connection(ccon, &fd)) < 0)
+	{
+		close(fd);
 		return (1);
+	}
 	//TODO: verify that the same client connected
 	len = sizeof(struct sockaddr_in);
-	if ((*dcon = accept(fd, (struct sockaddr*)&addr, &len)) < 0)
-		return (error(errno, "accept"));
+	*dcon = accept(fd, (struct sockaddr*)&addr, &len);
 	close(fd);
+	if (*dcon == -1)
+		return (error(1, "accept"));
 	info("opened data connection with %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	return (0);
 }

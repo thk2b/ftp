@@ -46,7 +46,7 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req)
 	if (status == 0)
 		status = write_file(*dcon, fd, &sb);
 	close(fd);
-	if (get_response(ccon, NULL) == 227)
+	if (status == 0 && get_response(ccon, NULL) == 227)
 	{
 		close(*dcon);
 		*dcon = -1;

@@ -42,7 +42,7 @@ t_response		*find_response(int code);
 */
 
 int				init(int *lconp, t_opts *opts);
-int				init_passive_data_connection(int ccon);
+int				init_passive_data_connection(int ccon, int *dcon);
 
 /*
 **	run.c

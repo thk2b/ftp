@@ -30,7 +30,7 @@ int			get_request(t_request_ctx *req, int fd)
 	if ((status = get_next_line(fd, &line)) != 1)
 	{
 		if (errno && errno != ECONNRESET)
-			return (error(errno, "get_next_line"));
+			return (error(1, "get_next_line"));
 		info("connection closed");
 		return (-1);
 	}
@@ -41,7 +41,7 @@ int			get_request(t_request_ctx *req, int fd)
 	free(line);
 	req->args = cmd;
 	if (cmd == NULL)
-		return (error(errno, "strsplit"));
+		return (error(1, "strsplit"));
 	if ((status = init_request(req)) == 0)
 		return (0);
 	ft_strvdel(cmd);
