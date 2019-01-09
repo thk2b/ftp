@@ -22,19 +22,6 @@ static int		do_stor(int ccon, int *dcon, int fd, struct stat *sb)
 	return (0);
 }
 
-static int		do_stor(int ccon, int *dcon, int fd, struct stat *sb)
-{
-	int			res_status;
-
-	if ((res_status = get_response(ccon, NULL)) <= 0)
-		return (1);
-	if (res_status != 125 && res_status != 150)
-		return (error(1, "invalid response from server"));
-	if (res_status == 150 && init_data_connection(ccon, dcon))
-		return (1);
-	return (write_file(*dcon, fd, sb));
-}
-
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	int			fd;
