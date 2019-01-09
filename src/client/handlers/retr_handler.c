@@ -13,7 +13,7 @@ static int		read_file(int from, int to)
 
 	info("reading from data connection, writing file");
 	nr = BUF_SIZE;
-	while (nr == BUF_SIZE)
+	while (nr > 0)
 	{
 		if ((nr = read(from, buf, BUF_SIZE)) == -1)
 			return (error(1, "read"));
@@ -31,7 +31,7 @@ static int		do_retr(int ccon, int *dcon, int fd, char *filename)
 	if ((res_status = get_response(ccon, NULL)) <= 0)
 		return (1);
 	if (res_status >= 400)
-		return (1);
+		return (0);
 	if (res_status == 150 && init_data_connection(ccon, dcon))
 		return (1);
 	read_file(*dcon, fd);

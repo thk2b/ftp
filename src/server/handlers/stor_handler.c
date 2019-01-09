@@ -7,58 +7,49 @@
 
 static int		read_file(int from, int to)
 {
-	char		buf[BUF_SIZE];
-	ssize_t		num_read;
+	char	buf[BUF_SIZE];
+	ssize_t	nr;
 
-	info("reading data connection, creating file");
-	while ((num_read = read(from, buf, BUF_SIZE)) > 0)
+	info("reading from data connection, writing file");
+	nr = BUF_SIZE;
+	while (nr > 0)
 	{
-		if (write(to, buf, num_read) != num_read)
-			return (error(451, "write"));
-		if (num_read != BUF_SIZE)
-			break ;
+		if ((nr = read(from, buf, BUF_SIZE)) == -1)
+			return (error(1, "read"));
+		if (write(to, buf, nr) != nr)
+			return (error(1, "write"));
 	}
-	if (num_read == -1)
-		return (error(451, "read"));
+	info("finished writing file");
 	return (0);
 }
 
-//TODO: send 451 instead of 550
-static int		do_stor(int ccon, int *dcon, t_request_ctx *req)
+static int		do_stor(int ccon, int *dcon, int fd)
 {
-	int			fd;
-	int			status;
-
-	status = 0;
 	if (*dcon == -1)
 	{
 		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL, NULL))
 			return (error(425, "couldn't setup data connection"));
 	}
 	else if (send_response(125, ccon))
-		return (1);
-	if ((fd = open(req->args[req->args[2] ? 2 : 1], O_WRONLY | O_CREAT, 0775)) == -1)
-		status = error(550, "open");
-	if (status == 0)
-		status = read_file(*dcon, fd);
-	close(fd);
-	return (status);
+		return (451);
+	return (read_file(*dcon, fd));
 }
 
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
-	int		should_close_dcon;
 	int		response_status;
+	char	*filename;
+	int		fd;
 
 	(void)ctx;
-	should_close_dcon = *dcon == -1;
-	response_status = do_stor(ccon, dcon, req);
-	if (should_close_dcon)
-	{
-		close(*dcon);
-		*dcon = -1;
-	}
+	filename = req->args[req->args[2] ? 2 : 1];
+	if ((fd = open(filename, O_WRONLY | O_CREAT, 0775)) == -1)
+		return (error_conn(ccon, 451, 1, "open"));
+	response_status = do_stor(ccon, dcon, fd);
+	close(fd);
+	close(*dcon);
+	*dcon = -1;
 	if (response_status == 0)
-		return (send_response(should_close_dcon ? 226 : 250, ccon));
+		return (send_response(226, ccon));
 	return (send_response(response_status, ccon));
 }
