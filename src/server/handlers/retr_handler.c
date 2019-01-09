@@ -34,9 +34,9 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	if (stat(filename, &sb) == -1)
 		return (error_conn(ccon, 550, 1, "stat"));
 	if (!S_ISREG(sb.st_mode))
-		return (error(550, "\"%s\" is not a regular file", filename));
+		return (error_conn(ccon, 550, 1, "\"%s\" is not a regular file", filename));
 	if ((fd = open(filename, O_RDONLY)) == -1)
-		return (error(451, "open"));
+		return (error_conn(ccon, 451, 1, "open"));
 	status = do_retr(ccon, dcon, fd, &sb);
 	close(fd);
 	close(*dcon);

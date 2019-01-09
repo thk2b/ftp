@@ -12,9 +12,9 @@ int			controller(int ccon, t_client *client)
 	int					dcon;
 	int					status;
 
-	if (send_response(220, ccon))
-		status = 1;
 	status = 0;
+	if (send_response(220, ccon))
+		status = -1;
 	dcon = -1;
 	while (status != -1)
 	{
@@ -29,5 +29,5 @@ int			controller(int ccon, t_client *client)
 		status = call_handler(ccon, &dcon, &req, client);
 		ft_strvdel(req.args);
 	}
-	return (status);
+	return (status != 0);
 }

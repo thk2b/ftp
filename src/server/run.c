@@ -49,7 +49,7 @@ int				run(int lcon)
 		}
 		info("accepted connection from %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 		if ((pid = fork()) == -1)
-			error(1, "fork");
+			return (error(1, "fork"));
 		else if (pid == 0)
 		{
 			close(lcon);

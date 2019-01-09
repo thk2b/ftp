@@ -12,18 +12,18 @@ int			init(int *lconp, t_opts *opts)
 	int					reuse_addr;
 
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-		return (error(errno, "socket"));
+		return (error(1, "socket"));
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons((uint16_t)opts->port);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	info("attempting to bind to %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 	reuse_addr = 1;
 	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &reuse_addr, sizeof(int)) < 0)
-		return (error(errno, "setsockopt"));
+		return (error(1, "setsockopt"));
 	if ((bind(sock, (struct sockaddr*)&addr, sizeof(struct sockaddr_in))) < 0)
-		return (error(errno, "bind"));
+		return (error(1, "bind"));
 	if (listen(sock, BACKLOG) < 0)
-		return (error(errno, "listen"));
+		return (error(1, "listen"));
 	info("listening for connections on %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 	*lconp = sock;
 	return (0);
