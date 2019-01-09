@@ -28,7 +28,7 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 
 	(void)ctx;
 	filename = req->args[req->args[2] ? 2 : 1];
-	if ((fd = open(filename, O_WRONLY | O_CREAT, 0775)) == -1)
+	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0775)) == -1)
 		return (error_conn(ccon, 451, 1, "open"));
 	response_status = do_stor(ccon, dcon, fd);
 	close(fd);

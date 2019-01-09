@@ -41,7 +41,7 @@ static int		init_passive_data_connection(int ccon, int lcon)
 		return (error(-1, "gesockname"));
 	if (inet_aton(PUBLIC_IP, &addr.sin_addr) != 1)
 		return (error(-1, "inet_atoi(PUBLIC_IP)"));
-	info("opened data connection at %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
+	info("opened data connection at %s:%d", inet_ntoa(addr.sin_addr), htons(addr.sin_port));
 	if (format_addr((char*)buf, &addr))
 		return (-1);
 	if (send_response_data(227, ccon, (char*)buf))
