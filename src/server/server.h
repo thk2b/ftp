@@ -5,8 +5,6 @@
 # define	BACKLOG		1024
 # define	PUBLIC_IP	"0.0.0.0"
 
-# define	BUF_SIZE	4069
-
 # include	<protocol.h>
 
 # include	<stdlib.h>
@@ -99,6 +97,7 @@ int				failure_conn(int ret, char *fmt, ...);
 /*
 **	format_addr.c
 */
+
 int				format_addr(char *buf, struct sockaddr_in *addr);
 
 /*
@@ -106,4 +105,11 @@ int				format_addr(char *buf, struct sockaddr_in *addr);
 */
 
 int				path_join(char **dst, char *left, char *right);
+
+/*
+**	list.c
+*/
+
+int				list(char *path, int out_fd);
+
 #endif

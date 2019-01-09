@@ -4,24 +4,7 @@
 #include		<fcntl.h>
 #include		<unistd.h>
 #include		<errno.h>
-
-static int		read_file(int from, int to)
-{
-	char	buf[BUF_SIZE];
-	ssize_t	nr;
-
-	info("reading from data connection, writing file");
-	nr = BUF_SIZE;
-	while (nr > 0)
-	{
-		if ((nr = read(from, buf, BUF_SIZE)) == -1)
-			return (error(1, "read"));
-		if (write(to, buf, nr) != nr)
-			return (error(1, "write"));
-	}
-	info("finished writing file");
-	return (0);
-}
+#include		<io.h>
 
 static int		do_stor(int ccon, int *dcon, int fd)
 {
@@ -32,7 +15,9 @@ static int		do_stor(int ccon, int *dcon, int fd)
 	}
 	else if (send_response(125, ccon))
 		return (451);
-	return (read_file(*dcon, fd));
+	if (read_file(*dcon, fd))
+		return (error(1, "read_file"));
+	return (0);
 }
 
 int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)

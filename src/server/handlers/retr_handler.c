@@ -6,29 +6,20 @@
 #include		<sys/stat.h>
 #include		<errno.h>
 #include		<sys/mman.h>
-
-static int		write_file(int to, int fd, struct stat *sb)
-{
-	void	*file;
-
-	if (sb->st_size == 0)
-		return (0);
-	if ((file = mmap(NULL, sb->st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (error(1, "mmap"));
-	if (write(to, file, sb->st_size) != sb->st_size)
-		return (error(1, "write"));
-	info("wrote file");
-	if (munmap(file, sb->st_size) == -1)
-		return (error(1, "munmap"));
-	return (0);
-}
+#include		<io.h>
 
 static int		do_retr(int ccon, int *dcon, int fd, struct stat *sb)
 {
 	if (*dcon == -1)
+	{
 		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL, NULL))
 			return (error(425, "couldn\'t open data connection"));
-	return (write_file(*dcon, fd, sb));
+	}
+	else if (send_response(125, ccon))
+		return (451);
+	if (write_file(*dcon, fd, sb))
+		return (error(1, "write_file"));
+	return (0);
 }
 
 int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
@@ -41,7 +32,7 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	(void)ctx;
 	filename = req->args[1];
 	if (stat(filename, &sb) == -1)
-		return (error(550, "stat"));
+		return (error_conn(ccon, 550, 1, "stat"));
 	if (!S_ISREG(sb.st_mode))
 		return (error(550, "\"%s\" is not a regular file", filename));
 	if ((fd = open(filename, O_RDONLY)) == -1)

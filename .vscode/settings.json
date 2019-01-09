@@ -21,6 +21,7 @@
 		"fcntl.h": "c",
 		"ostream": "c",
 		"stdarg.h": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"time.h": "c"
 	}
 }

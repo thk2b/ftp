@@ -5,7 +5,6 @@
 # define PROMPT		" ftp>\t"
 # define REV_PROMPT	"<ftp\t"
 # define PROMPT_LEN	6
-# define BUF_SIZE	4
 
 # include			<protocol.h>
 # include			<sys/types.h>

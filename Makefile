@@ -3,7 +3,7 @@ SERVER = server
 
 LIB = libft/libft.a
 
-SHARED_SRC = $(addprefix src/, protocol.c)
+SHARED_SRC = $(addprefix src/, protocol.c io.c)
 SHARED_INC = -I src -I libft/includes
 
 CLIENT_INC = $(SHARED_INC) -I src/client
@@ -13,7 +13,7 @@ CLIENT_SRC = $(SHARED_SRC) $(addprefix src/client/, commands.c status.c parse_ad
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 SERVER_INC = $(SHARED_INC) -I src/server
-SERVER_SRC = $(SHARED_SRC) $(addprefix src/server/, status.c init.c responses.c get_request.c send_response.c format_addr.c path.c controller.c run.c main.c\
+SERVER_SRC = $(SHARED_SRC) $(addprefix src/server/, status.c init.c responses.c get_request.c send_response.c format_addr.c path.c list.c controller.c run.c main.c\
 	$(addprefix handlers/, quit_handler.c list_handler.c pwd_handler.c cwd_handler.c retr_handler.c stor_handler.c pasv_handler.c mkd_handler.c)\
 )
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
