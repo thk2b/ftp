@@ -24,6 +24,27 @@ static int		read_file(int from, int to)
 	return (0);
 }
 
+static int		do_retr(int ccon, int *dcon, int fd, char *filename)
+{
+	int	res_status;
+
+	if ((res_status = get_response(ccon, NULL)) <= 0)
+		return (1);
+	if (res_status >= 400)
+		return (1);
+	if (res_status == 150 && init_data_connection(ccon, dcon))
+		return (1);
+	read_file(*dcon, fd);
+	if (res_status == 227 || (res_status < 200 && (res_status = get_response(ccon, NULL)) == 227))
+	{
+		close(*dcon);
+		*dcon = -1;
+	}
+	if (res_status >= 400)
+		unlink(filename);
+	return (0);
+}
+
 int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	char		*filename;
@@ -39,20 +60,7 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 		return (1);
 	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0775)) == -1)
 		return (error(1, "open %s", filename));
-	if (status == 0 && (res_status = get_response(ccon, NULL)) <= 0)
-		status = 1;
-	if (res_status >= 400)
-		status = 1;
-	if (status == 0 && res_status == 150)
-		status = init_data_connection(ccon, dcon);
-	if (status == 0)
-		read_file(*dcon, fd);
-	if (res_status == 227 || (res_status < 200 && (res_status = get_response(ccon, NULL)) == 227))
-	{
-		close(*dcon);
-		*dcon = -1;
-	}
-	if (status || res_status >= 400)
+	if (do_retr(ccon, dcon, fd, filename))
 		unlink(filename);
 	close(fd);
 	return (status);
