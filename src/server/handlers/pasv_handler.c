@@ -27,16 +27,16 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 		return (1);
 	}
 	len = sizeof(struct sockaddr_in);
-	while((*dcon = accept(fd, (struct sockaddr*)&addr, &len)))
-	{
-		if (addr.sin_addr.s_addr == client->addr.sin_addr.s_addr)
-			break;
-		close(*dcon);
-		info("a different client connected to the data connection");
-	}
-	close(fd);
-	if (*dcon == -1)
+	// while((*dcon = accept(fd, (struct sockaddr*)&addr, &len)))
+	// {
+		// if (addr.sin_addr.s_addr == client->addr.sin_addr.s_addr)
+		// 	break;
+		// close(*dcon);
+		// info("a different client connected to the data connection");
+	// }
+	if((*dcon = accept(fd, (struct sockaddr*)&addr, &len)) == -1)
 		return (error(1, "accept"));
+	close(fd);
 	info("opened data connection with %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	return (0);
 }
