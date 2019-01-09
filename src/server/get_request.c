@@ -27,8 +27,10 @@ int			get_request(t_request_ctx *req, int fd)
 
 	if ((status = get_next_line(fd, &line)) != 1)
 	{
-		if (errno && errno != ECONNRESET)
-			return (error(1, "get_next_line"));
+		if (errno && (errno == EAGAIN || errno == EWOULDBLOCK))
+			return (error(-1, "connection timed out"));
+		else if (errno && errno != ECONNRESET)
+			return (error(-1, "get_next_line"));
 		info("connection closed");
 		return (-1);
 	}

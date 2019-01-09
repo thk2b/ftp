@@ -4,6 +4,7 @@
 # define	USAGE		"%s [ port ]"
 # define	BACKLOG		1024
 # define	PUBLIC_IP	"0.0.0.0"
+# define	TIMEOUT		3600
 
 # include	<protocol.h>
 
@@ -52,7 +53,6 @@ typedef struct	s_client
 */
 
 int				init(int *lconp, t_opts *opts);
-int				init_passive_data_connection(int ccon, int *dcon);
 
 /*
 **	run.c

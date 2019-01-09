@@ -5,6 +5,17 @@
 #include	<stdio.h>
 #include	<string.h>
 
+static int	set_sock_timeout(int fd)
+{
+	struct timeval	tv;
+
+	tv.tv_sec = TIMEOUT;
+	tv.tv_usec = 0;
+	if (setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(struct timeval)))
+		return (error(1, "setsockopt(RCVTIMEO)"));
+	return (0);
+}
+
 int			controller(int ccon, t_client *client)
 {
 	t_request_ctx		req;
@@ -13,6 +24,7 @@ int			controller(int ccon, t_client *client)
 	int					status;
 
 	status = 0;
+	set_sock_timeout(ccon);
 	if (send_response(220, ccon))
 		status = -1;
 	dcon = -1;
