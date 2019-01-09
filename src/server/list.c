@@ -95,12 +95,11 @@ static int		list_dir(char *path, int out_fd)
 
 	if ((dir = opendir(path)) == NULL)
 		return (1);
-	status = -1;
 	while ((de = readdir(dir)))
 		if (*de->d_name != '.' && (status = list_file(de->d_name, out_fd)))
 			break ;
 	closedir(dir);
-	return (status != 0);
+	return (0);
 }
 
 int				list(char *path, int out_fd)
