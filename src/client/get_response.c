@@ -27,8 +27,8 @@ int			get_response(int ccon, char **data)
 	if ((status = get_next_line(ccon, &line)) != 1)
 	{
 		if (errno && errno != ECONNRESET)
-			return (error(1, "get_next_line"));
-		return (error(0 , "connection closed"));
+			return (error(-1, "get_next_line"));
+		return (error(-1 , "connection closed"));
 	}
 	if ((status = get_status(line)) == -1)
 		error(0, "invalid response");

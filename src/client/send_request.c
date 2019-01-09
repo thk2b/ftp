@@ -6,7 +6,7 @@
 
 /*
 **	send a request to the server
-**		return 0 if success, errno on error.
+**		return 0 if success, 1 on error.
 */
 int			send_request(int ccon, t_request_ctx *req)
 {

@@ -8,7 +8,5 @@ int				cwd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	(void)ctx;
 	if (send_request(ccon, req))
 		return (1);
-	get_response(ccon, NULL);
-	return (0);
-
+	return (get_response(ccon, NULL));
 }

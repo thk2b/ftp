@@ -42,11 +42,11 @@ int			init_data_connection(int ccon, int *dcon)
 
 	*dcon = -1;
 	if ((status = get_response(ccon, &data)) != 227)
-		return (error(1, "failed to open data connection"));
+		return (status);
 	status = parse_addr(&addr, &data);
 	free(data);
 	if (status)
-		return (info("invalid address"));
+		return (error(-1, "invalid address"));
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(1, "socket"));
 	addr.sin_family = AF_INET;

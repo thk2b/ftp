@@ -25,6 +25,7 @@ int			run(int ccon)
 			command_usage(g_commands + req.rid);
 		else
 			status = g_protocol[req.rid].fn(ccon, &dcon, &req, NULL);
+		info("%d", status);
 		ft_strvdel(req.args);
 	}
 	close(ccon);

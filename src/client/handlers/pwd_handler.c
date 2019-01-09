@@ -9,7 +9,7 @@ int				pwd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	(void)ctx;
 	if (send_request(ccon, req))
 		return (1);
-	if ((res_status = get_response(ccon, NULL)))
-		return (1);
+	if ((res_status = get_response(ccon, NULL)) == -1)
+		return (-1);
 	return (0);
 }
