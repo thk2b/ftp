@@ -16,6 +16,7 @@ t_response	g_responses[] = {
 	{ 500	, 15	, "Invalid command"						},
 	{ 501	, 18	, "Invalid parameters"					},
 	{ 550	, 16	, "Action not taken"					},
+	{ 553	, 21	, "File name not allowed"				},
 	{ -1	, 0		, NULL									}
 };
 

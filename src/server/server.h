@@ -101,4 +101,9 @@ int				failure_conn(int ret, char *fmt, ...);
 */
 int				format_addr(char *buf, struct sockaddr_in *addr);
 
+/*
+**	path.c
+*/
+
+int				path_join(char **dst, char *left, char *right);
 #endif

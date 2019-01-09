@@ -11,9 +11,11 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	int					fd;
 	struct sockaddr_in	addr;
 	socklen_t			len;
+	t_client			*client;
 
 	(void)req;
 	(void)ctx;
+	client = (t_client*)ctx;
 	info("attempting to open data connection");
 	if (*dcon >= 0)
 		close(*dcon);
@@ -24,9 +26,14 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 		close(fd);
 		return (1);
 	}
-	//TODO: verify that the same client connected
 	len = sizeof(struct sockaddr_in);
-	*dcon = accept(fd, (struct sockaddr*)&addr, &len);
+	while((*dcon = accept(fd, (struct sockaddr*)&addr, &len)))
+	{
+		if (addr.sin_addr.s_addr == client->addr.sin_addr.s_addr)
+			break;
+		close(*dcon);
+		info("a different client connected to the data connection");
+	}
 	close(fd);
 	if (*dcon == -1)
 		return (error(1, "accept"));

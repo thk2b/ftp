@@ -54,6 +54,8 @@ int				run(int lcon)
 			close(lcon);
 			_exit(controller(conn, client));
 		}
+		free(client->pwd);
+		free(client);
 		close(conn);
 	}
 	if (conn < 0)
