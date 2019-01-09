@@ -9,14 +9,15 @@
 
 static int		do_stor(int ccon, int *dcon, int fd, struct stat *sb)
 {
+	int			status;
 	int			res_status;
 
 	if ((res_status = get_response(ccon, NULL)) <= 0)
 		return (-1);
 	if (res_status != 125 && res_status != 150)
 		return (error(1, "invalid response from server"));
-	if (res_status == 150 && init_data_connection(ccon, dcon))
-		return (1);
+	if (res_status == 150 && (status = init_data_connection(ccon, dcon)))
+		return (status);
 	if (write_file(*dcon, fd, sb))
 		return (error(1, "write_file"));
 	return (0);

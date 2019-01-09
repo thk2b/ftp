@@ -48,11 +48,11 @@ int			init_data_connection(int ccon, int *dcon)
 	if (status)
 		return (error(-1, "invalid address"));
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-		return (error(1, "socket"));
+		return (error(-1, "socket"));
 	addr.sin_family = AF_INET;
 	info("attempting to connect to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	if (connect(fd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) < 0)
-		return (error(1, "connect"));
+		return (error(-1, "connect"));
 	info("established data connection with %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 	*dcon = fd;
 	return (0);
