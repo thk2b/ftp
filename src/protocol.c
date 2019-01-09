@@ -10,6 +10,7 @@ t_request				g_protocol[] = {
 	{ RID_RETR	, "RETR"	, {1, 2}	, retr_handler	},
 	{ RID_STOR	, "STOR"	, {1, 2}	, stor_handler	},
 	{ RID_PASV	, "PASV"	, {0, 0}	, pasv_handler	},
+	{ RID_MKD	, "MKD"		, {1, 1}	, mkd_handler	},
 	{ MAX_RID	, NULL		, {0, 0}	, NULL			}
 };
 
