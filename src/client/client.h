@@ -41,6 +41,7 @@ typedef struct		s_cmd
 t_cmd				*find_command(char *name, ssize_t *i);
 int					unknown_cmd_error(char **cmd);
 int					bad_usage_error(char **cmd, t_cmd *cmd_ref);
+int					command_usage(t_cmd *cmd);
 
 /*
 **	init.c

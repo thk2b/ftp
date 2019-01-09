@@ -5,13 +5,13 @@
 
 t_cmd	g_commands[] = {
 	{ RID_QUIT	, "quit"	, "close the connection and exit"				, NULL								},
-	{ RID_LIST	, "ls"		, "list files on the server"					, "%s [ path = ./]"					},
-	{ RID_CWD	, "cd"		, "change remote current working directory"		, "%s [ path = /]"					},
+	{ RID_LIST	, "ls"		, "list files on the server"					, "[ path = ./]"					},
+	{ RID_CWD	, "cd"		, "change remote current working directory"		, "[ path = /]"						},
 	{ RID_PWD	, "pwd"		, "print the current working directory"			, NULL								},
-	{ RID_RETR	, "get"		, "retreive a remote file and save it locally"	, "%s remote_path [ local_path ]"	},
-	{ RID_STOR	, "put"		, "transmit a local file and save it remotely"	, "%s local_path [ remote_path ]"	},
+	{ RID_RETR	, "get"		, "retreive a remote file and save it locally"	, "remote_path [ local_path ]"		},
+	{ RID_STOR	, "put"		, "transmit a local file and save it remotely"	, "local_path [ remote_path ]"		},
 	{ RID_PASV	, "pasv"	, "enter passive mode"							, NULL								},
-	{ RID_MKD	, "mkdir"	, "create a directory"							, "%s path"						},
+	{ RID_MKD	, "mkdir"	, "create a directory"							, "path"							},
 	{ MAX_RID	, NULL		, NULL											, NULL								}
 };
 
@@ -44,4 +44,10 @@ t_cmd	*find_command(char *name, ssize_t *p)
 	}
 	*p = -1;
 	return (NULL);
+}
+
+int		command_usage(t_cmd *cmd)
+{
+	dprintf(2, "USAGE: %s %s\n\t%s\n", cmd->name, cmd->arg_help, cmd->help);
+	return (0);
 }

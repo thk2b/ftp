@@ -22,7 +22,7 @@ int			run(int ccon)
 		if (get_request(&req, 0))
 			continue ;
 		if (req.args[1] && strcmp(req.args[1], "--help") == 0)
-			usage_error(g_commands[req.rid].help, &g_commands[req.rid].name);
+			command_usage(g_commands + req.rid);
 		else
 			status = g_protocol[req.rid].fn(ccon, &dcon, &req, NULL);
 		ft_strvdel(req.args);
