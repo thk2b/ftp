@@ -34,7 +34,7 @@ int			get_request(t_request_ctx *req, int fd)
 
 	write(1, PROMPT, PROMPT_LEN);
 	if ((status = get_next_line(fd, &line)) == -1)
-		return (error(1, "get_next_line"));
+		return (error(-1, "get_next_line"));
 	if (status == 0)
 	{
 		printf("\n");
@@ -45,8 +45,5 @@ int			get_request(t_request_ctx *req, int fd)
 	req->args = cmd;
 	if (cmd == NULL)
 		return (error(1, "strsplit"));
-	if (init_request(req) == 0)
-		return (0);
-	ft_strvdel(cmd);
-	return (1);
+	return (init_request(req));
 }

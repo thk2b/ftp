@@ -26,7 +26,7 @@ int		unknown_cmd_error(char **cmd)
 
 int		bad_usage_error(char **cmd, t_cmd *cmd_ref)
 {
-	usage_error(cmd_ref->arg_help, cmd);
+	dprintf(2, "USAGE: %s %s\n", cmd[0], cmd_ref->arg_help);
 	return (1);
 }
 

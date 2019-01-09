@@ -14,22 +14,21 @@ int			run(int ccon)
 
 	status = 0;
 	if (get_response(ccon, NULL) != 220)
-		status = 1;
+		status = -1;
 	dcon = -1;
 	while (status != -1)
 	{
 		errno = 0;
-		if (get_request(&req, 0))
-			continue ;
-		if (req.args[1] && strcmp(req.args[1], "--help") == 0)
+		if ((status = get_request(&req, 0)))
+		{}
+		else if (req.args[1] && strcmp(req.args[1], "--help") == 0)
 			command_usage(g_commands + req.rid);
 		else
 			status = g_protocol[req.rid].fn(ccon, &dcon, &req, NULL);
-		info("%d", status);
 		ft_strvdel(req.args);
 	}
 	close(ccon);
-	if (dcon >= 0)
+	if (dcon != -1)
 		close(dcon);
-	return (status == -1 ? 0 : status);
+	return (errno);
 }

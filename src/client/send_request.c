@@ -18,11 +18,11 @@ int			send_request(int ccon, t_request_ctx *req)
 	{
 		len = strlen(req->args[i]);
 		if (dprintf(ccon, "%s ", req->args[i]) != (int)len + 1)
-			return (error(1, "dprintf"));
+			return (error(-1, "dprintf"));
 		i++;
 	}
 	if (write(ccon, "\r\n", 2) != 2)
-		return (error(1, "write"));
+		return (error(-1, "write"));
 	return (0);
 }
 
