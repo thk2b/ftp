@@ -31,7 +31,7 @@ static int		print_perms(struct stat *sb, int fd)
 }
 static int		print_nlinks(struct stat *sb, int fd)
 {
-	return (dprintf(fd, "%2d\t", sb->st_nlink) == -1);
+	return (dprintf(fd, "%2ld\t", sb->st_nlink) == -1);
 }
 static int		print_owner(struct stat *sb, int fd)
 {
@@ -47,14 +47,14 @@ static int		print_owner(struct stat *sb, int fd)
 }
 static int		print_size(struct stat *sb, int fd)
 {
-	return (dprintf(fd, "%lld\t", sb->st_size) == -1);
+	return (dprintf(fd, "%ld\t", sb->st_size) == -1);
 }
 static int		print_time(struct stat *sb, int fd)
 {
 	char	*s;
 	size_t	len;
 
-	if ((s = ctime(&sb->st_mtimespec.tv_sec)) == NULL)
+	if ((s = ctime(&sb->st_mtim.tv_sec)) == NULL)
 		return (1);
 	len = strlen(s);
 	s[len - 1] = '\0';
