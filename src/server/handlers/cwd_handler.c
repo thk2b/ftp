@@ -24,19 +24,21 @@ int				cwd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	char		*tmp;
 	t_client	*client;
 	int			status;
+	char		*path;
 
 	(void)dcon;
+	path = req->args[1] ? req->args[1] : "";
 	client = (t_client*)ctx;
 	tmp = client->pwd;
-	if (validate_path_format(req->args[1]))
-		return (send_response(553, ccon));	
-	if ((status = path_join(&client->pwd, tmp, req->args[1])) == 1)
+	if (validate_path_format(path))
+		return (send_response(553, ccon));
+	if ((status = path_join(&client->pwd, tmp, path)) == 1)
 		return (error_conn(ccon, 451, 1, "path_join"));
 	else if (status == 1)
 		return (send_response(553, ccon));
 	info("pwd is %s", client->pwd);
 	free(tmp);
-	if (chdir(req->args[1]))
+	if (chdir(path))
 	{
 		if (errno == EACCES || errno == ENOENT)
 			return (send_response(550, ccon));
