@@ -10,14 +10,12 @@ int	format_addr(char *buf, struct sockaddr_in *addr)
 	size_t	i;
 	size_t	bi;
 	char	*ip;
-	char	*s;
 	unsigned char	port[2];
 
 	if ((ip = inet_ntoa(addr->sin_addr)) == NULL)
 		return (1);
 	i = 0;
 	bi = 0;
-	s = buf;
 	buf[bi++] = '(';
 	while (ip[i] && bi < 16)
 	{

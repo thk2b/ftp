@@ -11,11 +11,11 @@ int			pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	int					fd;
 	struct sockaddr_in	addr;
 	socklen_t			len;
-	t_client			*client;
+//	t_client			*client;
 
 	(void)req;
 	(void)ctx;
-	client = (t_client*)ctx;
+//	client = (t_client*)ctx;
 	info("attempting to open data connection");
 	if (*dcon >= 0)
 		close(*dcon);

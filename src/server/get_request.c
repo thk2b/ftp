@@ -6,10 +6,8 @@
 
 static int	init_request(t_request_ctx *req)
 {
-	ssize_t		i;
 	t_request	*req_ref;
 
-	i = -1;
 	if (req->args == NULL || req->args[0] == NULL)
 		return (500);
 	if ((req_ref = find_request_by_name(req->args[0])) == NULL)
