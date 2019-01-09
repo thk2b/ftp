@@ -1,4 +1,4 @@
-#include	<server.h>
+// #include	<server.h>
 #include	<libft.h>
 
 #include	<string.h>
@@ -37,10 +37,10 @@ static int	path_append(char **d, char **l, char **r)
 
 static int	path_join_no_dot(char **dst, char *left, char *right)
 {
-	if (*left == '/' && left[1] == '\0')
-		return ((*dst = ft_strjoin(left, right)) == NULL);
 	if (*right == '/')
 		return ((*dst = strdup(right)) == NULL);
+	if (*left == '/' && left[1] == '\0')
+		return ((*dst = ft_strjoin(left, right)) == NULL);
 	return ((*dst = ft_strcjoin(left, '/', right)) == NULL);
 }
 /*
@@ -80,10 +80,11 @@ int			path_join(char **dst, char *left, char *right)
 #include <printf.h>
 int main(int ac, char **av)
 {
-	char *d;
+	char *d = strdup("/a");
 
 	(void)ac;
 	int ret = path_join(&d, av[1], av[2]);
+	printf("%d - '%s'\n", ret, d);
 	printf("%d - '%s'\n", ret, d);
 	system("leaks a.out");
 }
