@@ -5,14 +5,14 @@
 
 static int	parse_args(t_opts *opts, int ac, char **av)
 {
-	opts->addr.sin_addr.s_addr = 0;
-	opts->addr.sin_port = 8080;
+	opts->host = NULL;
+	opts->port = 8080;
 	if (ac < 2 || ac > 3)
 		return (1);
-	if (ac >= 2 && resolve_address(av[1], &opts->addr.sin_addr))
-		return (1);
+	if (ac >= 2)
+		opts->host = av[1];
 	if (ac == 3)
-		opts->addr.sin_port = htons(atoi(av[2]));
+		opts->port = atoi(av[2]);
 	return (0);
 }
 

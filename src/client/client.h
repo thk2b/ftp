@@ -19,9 +19,9 @@
 
 typedef struct		s_opts
 {
-	struct sockaddr_in	addr;
+	char			*host;
+	int				port;
 }					t_opts;
-int					resolve_address(char *s, struct in_addr *addr);
 
 /*
 **	command
