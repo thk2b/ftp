@@ -30,7 +30,7 @@ int			parse_args(t_opts *opts, int ac, char **av)
 	else if (ac == 3)
 	{
 		if (resolve_host(av[1], &opts->ip))
-			return (1);
+			return (-1);
 		opts->port = (uint32_t)atoi(av[2]);
 	}
 	else
@@ -44,8 +44,10 @@ int			main(int ac, char **av)
 	int		status;
 
 	status = 0;
-	if (parse_args(&g_opts, ac, av))
+	if ((status = parse_args(&g_opts, ac, av)) == 1)
 		return (usage_error(USAGE, av));
+	else if (status)
+		return (1);
 	if ((status = init(&lcon, &g_opts)))
 		return (status);
 	status = run(lcon);
