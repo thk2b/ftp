@@ -29,6 +29,8 @@ make
 ./server [ port=2222 ] [-l loglevel=1]
 ```
 
+Uploaded files are put in a `./.ftp_data` directory.
+
 ## architecture
 
 ### protocol
