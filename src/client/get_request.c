@@ -15,9 +15,12 @@ static int	init_request(t_request_ctx *req)
 	i = -1;
 	if (req->args == NULL || req->args[0] == NULL)
 		return (1);
-	if ((cmd_ref = find_command(req->args[0], &i)) == NULL)
-		return (unknown_cmd_error(req->args));
+	cmd_ref = find_command(req->args[0], &i);
 	req->rid = i;
+	if (handle_help(req))
+		return (1);
+	else if (cmd_ref == NULL)
+		return (unknown_cmd_error(req->args));
 	if ((req_ref = find_request(i)) == NULL)
 		return (1);
 	if (validate_arguments(req->args + 1, req_ref))

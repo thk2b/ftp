@@ -21,8 +21,6 @@ int			run(int ccon)
 		errno = 0;
 		if ((status = get_request(&req, 0)))
 		{}
-		else if (req.args[1] && strcmp(req.args[1], "--help") == 0)
-			command_usage(g_commands + req.rid);
 		else
 			status = g_protocol[req.rid].fn(ccon, &dcon, &req, NULL);
 		ft_strvdel(req.args);

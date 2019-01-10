@@ -2,9 +2,16 @@
 
 #include	<errno.h>
 #include	<unistd.h>
+#include	<string.h>
 
 static int	parse_args(t_opts *opts, int ac, char **av)
 {
+	int	i;
+
+	i = 1;
+	while (i < ac)
+		if (strcmp(av[i++], "--help") == 0)
+			exit(program_usage() != 0);
 	opts->host = NULL;
 	opts->port = 8080;
 	if (ac < 2 || ac > 3)

@@ -46,8 +46,33 @@ t_cmd	*find_command(char *name, ssize_t *p)
 	return (NULL);
 }
 
-int		command_usage(t_cmd *cmd)
+int		program_usage(void)
 {
-	dprintf(2, "USAGE: %s %s\n\t%s\n", cmd->name, cmd->arg_help, cmd->help);
+	t_cmd	*cmd;
+
+	dprintf(2, "ftp client\navailable commands:\n");
+	cmd = g_commands;
+	while (cmd->rid != MAX_RID)
+	{
+		dprintf(2, "\t%s %s\n\t\t%s\n", cmd->name, cmd->arg_help ? cmd->arg_help : "", cmd->help);
+		cmd++;
+	}
+	return (0);
+}
+
+int		handle_help(t_request_ctx *req)
+{
+	t_cmd	*cmd;
+
+	if (strcmp(req->args[0], "help") == 0)
+		return (program_usage() == 0);
+	else if (req->args[1] && strcmp(req->args[1], "--help") == 0)
+	{
+		if (req->rid >= MAX_RID)
+			return (0);
+		cmd = g_commands + req->rid;
+		dprintf(2, "USAGE: %s %s\n\t%s\n", cmd->name, cmd->arg_help, cmd->help);
+		return (1);
+	}
 	return (0);
 }
