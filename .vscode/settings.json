@@ -23,6 +23,7 @@
 		"stdarg.h": "c",
 		"typeinfo": "c",
 		"time.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"dirent.h": "c"
 	}
 }

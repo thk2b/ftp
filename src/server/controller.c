@@ -4,6 +4,8 @@
 #include	<libft.h>
 #include	<stdio.h>
 #include	<string.h>
+#include	<dirent.h>
+#include	<sys/stat.h>
 
 static int	set_sock_timeout(int fd)
 {
@@ -16,6 +18,22 @@ static int	set_sock_timeout(int fd)
 	return (0);
 }
 
+static int	go_to_data_dir(void)
+{
+	struct stat	sb;
+
+	if (stat(DATA_DIR, &sb) == -1)
+	{
+		if (errno != ENOENT)
+			return (error(1, "stat"));
+		if (mkdir(DATA_DIR, 0775))
+			return (error(1, "mkdir"));
+	}
+	if (chdir(DATA_DIR))
+		return (error(1, "chdir"));
+	return (0);
+}
+
 int			controller(int ccon, t_client *client)
 {
 	t_request_ctx		req;
@@ -24,6 +42,8 @@ int			controller(int ccon, t_client *client)
 	int					status;
 
 	status = 0;
+	if (go_to_data_dir())
+		return (1);
 	set_sock_timeout(ccon);
 	if (send_response(220, ccon))
 		status = -1;

@@ -5,6 +5,7 @@
 # define	BACKLOG		1024
 # define	DEFAULT_PUBLIC_IP	0
 # define	TIMEOUT		3600
+# define	DATA_DIR	".ftp_data"
 
 # include	<protocol.h>
 

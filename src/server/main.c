@@ -8,7 +8,7 @@ t_opts		g_opts;
 
 static int	resolve_host(char *s, in_addr_t *ip)
 {
-	struct in_addr	addr;
+	struct in_addr		addr;
 	struct addrinfo		hints = {0,0,0,0,0,0,0,0};
 	struct addrinfo		*addr_info;
 
