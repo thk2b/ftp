@@ -36,8 +36,8 @@ int			init(int *cconp, t_opts *opts)
 	while (addr_info)
 	{
 		addr = *(struct sockaddr_in*)addr_info->ai_addr;
-		info("attempting connection to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
 		addr.sin_port = htons((uint32_t)opts->port);
+		info("attempting connection to %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 		if (connect(sock, (struct sockaddr*)&addr, sizeof(struct sockaddr_in)) >= 0)
 			break ;
 		info("connection failed");
@@ -45,7 +45,7 @@ int			init(int *cconp, t_opts *opts)
 	}
 	if (addr_info == NULL)
 		return (error(1, "could not connect to host"));
-	info("connected to %s:%d", inet_ntoa(addr.sin_addr), addr.sin_port);
+	info("connected to %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 	*cconp = sock;
 	return (0);
 }
