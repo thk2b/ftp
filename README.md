@@ -3,6 +3,8 @@ A FTP client and server implementation
 
 ## TODO
 
+- [ ] controller `chdir .ftp_data`
+- [ ] `rm`
 - [ ] `!<local_cmd>` in client
 - [ ] log level option
 
