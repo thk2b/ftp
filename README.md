@@ -3,8 +3,6 @@ A FTP client and server implementation
 
 ## TODO
 
-- [ ] accept url
-- [ ] send correct ip in pasv_handler
 - [ ] `!<local_cmd>` in client
 - [ ] log level option
 
