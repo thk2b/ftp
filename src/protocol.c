@@ -11,6 +11,7 @@ t_request				g_protocol[] = {
 	{ RID_STOR	, "STOR"	, {1, 2}	, stor_handler	},
 	{ RID_PASV	, "PASV"	, {0, 0}	, pasv_handler	},
 	{ RID_MKD	, "MKD"		, {1, 1}	, mkd_handler	},
+	{ RID_DELE	, "DELE"	, {1, 1}	, dele_handler	},
 	{ MAX_RID	, NULL		, {0, 0}	, NULL			}
 };
 

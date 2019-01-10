@@ -12,6 +12,7 @@ t_cmd	g_commands[] = {
 	{ RID_STOR	, "put"		, "transmit a local file and save it remotely"	, "local_path [ remote_path ]"		},
 	{ RID_PASV	, "pasv"	, "enter passive mode"							, NULL								},
 	{ RID_MKD	, "mkdir"	, "create a directory"							, "path"							},
+	{ RID_DELE	, "rm"		, "remove a file or directory"					, "path"							},
 	{ MAX_RID	, NULL		, NULL											, NULL								}
 };
 
