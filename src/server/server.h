@@ -3,7 +3,7 @@
 
 # define	USAGE		"%s [ port ]"
 # define	BACKLOG		1024
-# define	PUBLIC_IP	"0.0.0.0"
+# define	DEFAULT_PUBLIC_IP	"0.0.0.0"
 # define	TIMEOUT		3600
 
 # include	<protocol.h>
@@ -18,6 +18,8 @@
 
 typedef struct	s_opts
 {
+	
+	in_addr_t	ip;
 	uint16_t	port;
 }				t_opts;
 

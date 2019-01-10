@@ -9,7 +9,7 @@
 #include	<string.h>
 
 
-int			resolve_host(char *s, struct addrinfo **addr_infop)
+static int	resolve_host(char *s, struct addrinfo **addr_infop)
 {
 	struct addrinfo	hints = {0,0,0,0,0,0,0,0};
 

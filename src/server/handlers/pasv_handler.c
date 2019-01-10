@@ -28,10 +28,12 @@ static int		init_passive_data_connection(int ccon, int lcon)
 	struct sockaddr_in	addr;
 	socklen_t			len;
 	char				buf[26] = {0};
+	extern t_opts		g_opts;
 
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = 0;
+	addr.sin_addr.s_addr = g_opts.ip;
 	if (bind(lcon, (struct sockaddr*)&addr, sizeof(struct sockaddr_in)) < 0)
 		return (error(-1, "bind"));
 	if (listen(lcon, 0) < 0)
@@ -39,8 +41,8 @@ static int		init_passive_data_connection(int ccon, int lcon)
 	len = sizeof(struct sockaddr_in);
 	if (getsockname(lcon, (struct sockaddr*)&addr, &len) < 0)
 		return (error(-1, "gesockname"));
-	if (inet_aton(PUBLIC_IP, &addr.sin_addr) != 1)
-		return (error(-1, "inet_atoi(PUBLIC_IP)"));
+	// if (inet_aton(g_opts.ip, &addr.sin_addr) != 1)
+		// return (error(-1, "inet_atoi(PUBLIC_IP)"));
 	info("opened data connection at %s:%d", inet_ntoa(addr.sin_addr), htons(addr.sin_port));
 	if (format_addr((char*)buf, &addr))
 		return (-1);
