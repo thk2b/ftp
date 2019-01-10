@@ -4,6 +4,7 @@
 #include	<errno.h>
 #include	<string.h>
 #include	<stdio.h>
+#include	<signal.h>
 
 static int	init_request(t_request_ctx *req)
 {
@@ -26,6 +27,12 @@ static int	init_request(t_request_ctx *req)
 	return (0);
 }
 
+static void	sig_int(int s)
+{
+	(void)s;
+	write(1,"\n" PROMPT, PROMPT_LEN + 1);
+}
+
 int			get_request(t_request_ctx *req, int fd)
 {
 	int		status;
@@ -33,6 +40,7 @@ int			get_request(t_request_ctx *req, int fd)
 	char	**cmd;
 
 	write(1, PROMPT, PROMPT_LEN);
+	signal(SIGINT, sig_int);
 	if ((status = get_next_line(fd, &line)) == -1)
 		return (error(-1, "get_next_line"));
 	if (status == 0)
@@ -43,6 +51,7 @@ int			get_request(t_request_ctx *req, int fd)
 	cmd = ft_strsplit(line, ' ');
 	free(line);
 	req->args = cmd;
+	signal(SIGINT, SIG_DFL);
 	if (cmd == NULL)
 		return (error(1, "strsplit"));
 	return (init_request(req));

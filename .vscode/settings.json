@@ -22,6 +22,7 @@
 		"ostream": "c",
 		"stdarg.h": "c",
 		"typeinfo": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"stdio.h": "c"
 	}
 }
