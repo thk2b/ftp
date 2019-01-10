@@ -3,8 +3,9 @@ A FTP client and server implementation
 
 ## TODO
 
-- [ ] accept url
-- [ ] send correct ip in pasv_handler
+- [ ] controller `chdir .ftp_data`
+- [ ] `help`, `--help`
+- [ ] `rm`
 - [ ] `!<local_cmd>` in client
 - [ ] log level option
 
