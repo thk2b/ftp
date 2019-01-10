@@ -5,11 +5,11 @@
 #include		<errno.h>
 #include		<unistd.h>
 
-static int		do_list(int ccon, int *dcon, char *filename)
+static int		do_list(int ccon, int *dcon, char *filename, void *ctx)
 {
 	if (*dcon == -1)
 	{
-		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL, NULL))
+		if (send_response(150, ccon) || pasv_handler(ccon, dcon, NULL, ctx))
 			return (error(425, "couldn\'t open data connection"));
 	}
 	else if (send_response(125, ccon))
@@ -22,9 +22,8 @@ int				list_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 	char	*path;
 	int		status;
 
-	(void)ctx;
 	path = req->args[1] ? req->args[1] : ".";
-	status = do_list(ccon, dcon, path);
+	status = do_list(ccon, dcon, path, ctx);
 	close(*dcon);
 	*dcon = -1;
 	if (status == -1)
