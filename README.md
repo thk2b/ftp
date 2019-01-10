@@ -20,7 +20,7 @@ make
 ### client
 
 ```
-./client [ host=localhost [ port=2222 ]] [-l loglevel=1]
+./client [ host=localhost [ port=2222 ]] [-l loglevel=1] [--help]
 ```
 
 ### server
@@ -56,6 +56,7 @@ Commands map user input to a request.
 
 |index|names|arguments|
 |-|-|-|
+|n/a|help||
 |0|quit, exit||
 |1|ls|[ path ]|
 |2|cd|[ path ]|
