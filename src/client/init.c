@@ -27,12 +27,14 @@ int			init(int *cconp, t_opts *opts)
 {
 	int					sock;
 	struct addrinfo		*addr_info;
+	struct addrinfo		*i;
 	struct sockaddr_in	addr;
 
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (error(1, "socket"));
 	if (resolve_host(opts->host, &addr_info))
 		return (1);
+	i = addr_info;
 	while (addr_info)
 	{
 		addr = *(struct sockaddr_in*)addr_info->ai_addr;
@@ -43,6 +45,7 @@ int			init(int *cconp, t_opts *opts)
 		info("connection failed");
 		addr_info = addr_info->ai_next;
 	}
+	freeaddrinfo(i);
 	if (addr_info == NULL)
 		return (error(1, "could not connect to host"));
 	info("connected to %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));

@@ -17,6 +17,7 @@ static int	resolve_host(char *s, in_addr_t *ip)
 	if (getaddrinfo(s, NULL, &hints, &addr_info))
 		return (error(1, "getaddrinfo: couldn't resolve '%s'", s));
 	addr = ((struct sockaddr_in*)addr_info->ai_addr)->sin_addr;
+	freeaddrinfo(addr_info);
 	*ip = addr.s_addr;
 	return (0);
 }
