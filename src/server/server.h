@@ -1,7 +1,7 @@
 #ifndef SERVER_H
 # define SERVER_H
 
-# define	USAGE		"%s [[ host ] port ] [ -v ]"
+# define	USAGE		"%s [[[ host ] port ] -v  | --help]"
 # define	BACKLOG		1024
 # define	DEFAULT_PUBLIC_IP	0
 # define	TIMEOUT		3600

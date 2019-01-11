@@ -1,7 +1,7 @@
 #ifndef CLIENT_H
 # define CLIENT_H
 
-# define USAGE		"%s host [ port ] [ -v ]"
+# define USAGE		"%s host [[ port ] -v  | --help ]"
 # define PROMPT		" ftp>\t"
 # define REV_PROMPT	"<ftp\t"
 # define PROMPT_LEN	6

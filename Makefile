@@ -20,7 +20,7 @@ SERVER_OBJ = $(SERVER_SRC:.c=.o)
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-# FLAGS += -fsanitize=address -g
+FLAGS += -fsanitize=address
 COMPILE = $(CC) $(FLAGS)
 
 all: $(CLIENT) $(SERVER)
