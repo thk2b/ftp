@@ -41,7 +41,6 @@ int			controller(int ccon, t_client *client)
 	int					dcon;
 	int					status;
 
-	system("leaks server");
 	status = 0;
 	if (go_to_data_dir())
 		return (1);

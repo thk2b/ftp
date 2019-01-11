@@ -52,7 +52,6 @@ int				run(int lcon)
 			return (error(1, "fork"));
 		else if (pid == 0)
 		{
-			system("leaks server");
 			close(lcon);
 			_exit(controller(conn, client));
 		}
