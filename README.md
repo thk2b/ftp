@@ -1,11 +1,6 @@
 # FTP
 A FTP client and server implementation
 
-## TODO
-
-- [ ] `rm`
-- [ ] log level option
-
 ## usage
 
 ### compile
@@ -17,13 +12,13 @@ make
 ### client
 
 ```
-./client [ host=localhost [ port=2222 ]] [-l loglevel=1] [--help]
+./client host [ port=8080 ]] [-v | --help]
 ```
 
 ### server
 
 ```
-./server [ port=2222 ] [-l loglevel=1]
+./server [ [ host=0.0.0.0 ] port=8080 ] [-v | --help]
 ```
 
 Uploaded files are put in a `./.ftp_data` directory.
