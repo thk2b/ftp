@@ -20,7 +20,7 @@ static int	secure_absolute_path(char *filename, char **dst)
 	return (0);
 }
 
-int			dele_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
+int			rmd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 {
 	char		*tmp;
 	int			status;
@@ -36,13 +36,13 @@ int			dele_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 		return (error_conn(ccon, 451, 1, "secure absolute path"));
 	free(req->args[1]);
 	req->args[1] = tmp;
-	info("unlink %s", tmp);
-	status = unlink(tmp);
+	info("rmdir %s", tmp);
+	status = rmdir(tmp);
 	if (status)
 	{
 		if (errno == ENOENT || errno == EPERM)
 			return (send_response(553, ccon));
-		return (error_conn(ccon, 451, 1, "unlink"));
+		return (error_conn(ccon, 451, 1, "rmdir"));
 	}
 	return (send_response(250, ccon));
 }

@@ -14,6 +14,7 @@ enum			e_request_id {
 	RID_PASV,
 	RID_MKD,
 	RID_DELE,
+	RID_RMD,
 	MAX_RID
 };
 
@@ -53,5 +54,6 @@ int				stor_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 int				pasv_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 int				mkd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 int				dele_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
+int				rmd_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx);
 
 #endif
