@@ -10,6 +10,7 @@
 #include		<grp.h>
 #include		<time.h>
 #include		<stdlib.h>
+#include		<limits.h>
 
 static int		print_perms(struct stat *sb, int fd)
 {
@@ -71,18 +72,25 @@ static int		print_name(char *name, int fd)
 	return (dprintf(fd, "%s\n", filename) == (int)strlen(filename));
 }
 
-static int		list_file(char *path, int fd)
+static int		list_file(char *path, char *filename, int fd)
 {
 	struct stat	sb;
+	size_t		len1;
+	char		buf[PATH_MAX] = {0};
+	int			status;
 
-	if (stat(path, &sb))
-		return (error(1, "stat"));
-	if (print_perms(&sb, fd)
+	len1 = strlen(path);
+	memcpy(buf, path, len1);
+	memcpy(buf + len1, "/", 1);
+	memcpy(buf + len1 + 1, filename, strlen(filename));
+	if ((status = stat(buf, &sb)))
+		status = error(1, "stat");
+	if (status == 0 && (print_perms(&sb, fd)
 	|| print_nlinks(&sb, fd)
 	|| print_owner(&sb, fd)
 	|| print_size(&sb, fd)
 	|| print_time(&sb, fd)
-	|| print_name(path, fd))
+	|| print_name(filename, fd)))
 		return (1);
 	return (0);
 }
@@ -96,7 +104,7 @@ static int		list_dir(char *path, int out_fd)
 	if ((dir = opendir(path)) == NULL)
 		return (1);
 	while ((de = readdir(dir)))
-		if (*de->d_name != '.' && (status = list_file(de->d_name, out_fd)))
+		if (*de->d_name != '.' && (status = list_file(path, de->d_name, out_fd)))
 			break ;
 	closedir(dir);
 	return (0);
@@ -114,15 +122,7 @@ int				list(char *path, int out_fd)
 		return (error(1, "stat"));
 	}
 	if (S_ISREG(sb.st_mode))
-		return (list_file(path, out_fd));
+		return (list_file(".", path, out_fd));
 	status = list_dir(path, out_fd);
 	return (status);
 }
-
-// int main(int ac, char **av)
-// {
-// 	(void)ac;
-
-// 	printf("\n%d\n", list(av[1], 1));
-// 	system("leaks a.out");
-// }
