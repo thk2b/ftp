@@ -12,7 +12,7 @@ make
 ### client
 
 ```
-./client [ host=0.0.0.0 [ port=8080 ]] [-v | --help]
+./client host [ port=8080 ]] [-v | --help]
 ```
 
 ### server
