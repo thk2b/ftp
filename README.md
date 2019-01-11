@@ -12,13 +12,13 @@ make
 ### client
 
 ```
-./client [ host=localhost [ port=2222 ]] [-v | --help]
+./client [ host=0.0.0.0 [ port=8080 ]] [-v | --help]
 ```
 
 ### server
 
 ```
-./server [ port=2222 ] [-v | --help]
+./server [ [ host=0.0.0.0 ] port=8080 ] [-v | --help]
 ```
 
 Uploaded files are put in a `./.ftp_data` directory.
