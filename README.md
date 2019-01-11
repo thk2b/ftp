@@ -1,11 +1,6 @@
 # FTP
 A FTP client and server implementation
 
-## TODO
-
-- [ ] `rm`
-- [ ] log level option
-
 ## usage
 
 ### compile
