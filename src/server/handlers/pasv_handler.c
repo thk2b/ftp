@@ -27,7 +27,7 @@ static int		init_passive_data_connection(int ccon, int lcon)
 {
 	struct sockaddr_in	addr;
 	socklen_t			len;
-	char				buf[26] = {0};
+	char				buf[30] = {0};
 	extern t_opts		g_opts;
 
 	addr.sin_family = AF_INET;
