@@ -1,7 +1,7 @@
 #ifndef CLIENT_H
 # define CLIENT_H
 
-# define USAGE		"%s host [ port ]"
+# define USAGE		"%s host [ port ] [ -v ]"
 # define PROMPT		" ftp>\t"
 # define REV_PROMPT	"<ftp\t"
 # define PROMPT_LEN	6
@@ -21,6 +21,7 @@ typedef struct		s_opts
 {
 	char			*host;
 	int				port;
+	char			verbose;
 }					t_opts;
 
 /*

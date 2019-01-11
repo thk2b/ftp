@@ -1,6 +1,7 @@
 #include	<unistd.h>
 #include	<netdb.h>
 #include	<sys/socket.h>
+#include	<string.h>
 
 #include	<server.h>
 
@@ -24,6 +25,13 @@ static int	resolve_host(char *s, in_addr_t *ip)
 
 int			parse_args(t_opts *opts, int ac, char **av)
 {
+	int		i;
+
+	i = 1;
+	opts->verbose = 0;
+	while (i < ac)
+		if (strcmp(av[i++], "-v") == 0)
+			opts->verbose = 1;
 	opts->ip = (in_addr_t)DEFAULT_PUBLIC_IP;
 	opts->port = 8080;
 	if (ac == 2)
@@ -34,8 +42,6 @@ int			parse_args(t_opts *opts, int ac, char **av)
 			return (-1);
 		opts->port = (uint32_t)atoi(av[2]);
 	}
-	else
-		return (1);
 	return (0);
 }
 

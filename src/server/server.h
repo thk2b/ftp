@@ -1,7 +1,7 @@
 #ifndef SERVER_H
 # define SERVER_H
 
-# define	USAGE		"%s [ port ]"
+# define	USAGE		"%s [ port ] [ -v ]"
 # define	BACKLOG		1024
 # define	DEFAULT_PUBLIC_IP	0
 # define	TIMEOUT		3600
@@ -22,6 +22,7 @@ typedef struct	s_opts
 	
 	in_addr_t	ip;
 	uint16_t	port;
+	char		verbose;
 }				t_opts;
 
 /*

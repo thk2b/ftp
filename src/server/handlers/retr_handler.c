@@ -31,7 +31,11 @@ int				retr_handler(int ccon, int *dcon, t_request_ctx *req, void *ctx)
 
 	filename = req->args[1];
 	if (stat(filename, &sb) == -1)
-		return (error_conn(ccon, 550, 1, "stat"));
+	{
+		if (errno == EACCES || errno == ENOENT)
+			return (send_response(550, ccon));
+		return (error_conn(ccon, 451, 1, "stat"));
+	}
 	if (!S_ISREG(sb.st_mode))
 		return (error_conn(ccon, 550, 1, "\"%s\" is not a regular file", filename));
 	if ((fd = open(filename, O_RDONLY)) == -1)

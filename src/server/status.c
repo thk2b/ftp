@@ -14,8 +14,11 @@ int			usage_error(char *usage, char **av)
 
 int			info(char *msg, ...)
 {
-	va_list		args;
+	va_list				args;
+	extern t_opts		g_opts;
 
+	if (g_opts.verbose == 0)
+		return (0);
 	va_start(args, msg);
 	dprintf(2, "INFO:\t");
 	vdprintf(2, msg, args);
