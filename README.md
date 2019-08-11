@@ -1,31 +1,47 @@
 # FTP
 A FTP client and server implementation
 
-## usage
+## zusage
 
-### compile
+### Compile
 
 ```
 make
 ```
 
-### client
+### Client
 
 ```
 ./client host [[ port=8080 ] -v | --help]
 ```
 
-### server
+Once connected, the client can retrive local files and send them over TCP to the server, or request remote files from the server and save them locally.
+
+The following commands are supported
+
+|index|names|arguments|descriptions|
+|-|-|-|-|
+|n/a|help||print a help message|
+|0|quit, exit||exit the program|
+|1|ls|[ path ]|list files|
+|2|cd|[ path ]|change directory|
+|3|pwd||print present working directory
+|4|get|remote_path [ local_path ]|download a file from the server|
+|5|put|local_path [ remote_path ]|upload a file to the server|
+|6|pasv||manually create a data transfer connection with the server|
+|7|mkdir|path|create a directory on the server|
+
+### Server
 
 ```
 ./server [[[ host=0.0.0.0 ] port=8080 ] -v | --help]
 ```
 
+The server listens for TCP connections and handles clients concurently in separate processes. Each of these processes listens and executes commands sent by the client over TCP.
+
 Uploaded files are put in a `./.ftp_data` directory.
 
-## architecture
-
-### protocol
+## Protocol
 
 The protocol is the set of actions recognized by the client and server.
 
@@ -38,34 +54,4 @@ The protocol is the set of actions recognized by the client and server.
 |4|RETR|path|filename|request file from remote server, create or overrive local file|
 |5|STOR|path|send file to remote server, create or override file on the server|
 |6|PASV||enable passive mode|
-|7|MKD|create directory|
-
-### client
-
-#### commands
-
-Commands map user input to a request.
-
-|index|names|arguments|
-|-|-|-|
-|n/a|help||
-|0|quit, exit||
-|1|ls|[ path ]|
-|2|cd|[ path ]|
-|3|pwd||
-|4|get|remote_path [ local_path ]|
-|5|put|local_path [ remote_path ]|
-|6|pasv||
-|7|mkdir|path|
-
-#### handlers
-
-On the client, handlers are functions that take a specifc command and carry out the communication with the server.
-There is one handler per protocol entry.
-
-The server listens on the main process and forks after each client connection.
-The forked process is refered to as the controller, the main process is the listener.
-
-#### handlers
-
-On the controller, handlers are functions that take a requests and carry out the comunication with the client.
+|7|MKD||create directory|
