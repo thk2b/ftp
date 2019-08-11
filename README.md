@@ -1,7 +1,7 @@
 # FTP
 A FTP client and server implementation
 
-## zusage
+## Usage
 
 ### Compile
 
