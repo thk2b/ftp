@@ -1,6 +1,8 @@
 # FTP
 A FTP client and server implementation
 
+![screenshot](https://raw.githubusercontent.com/thk2b/ftp/master/media/screenshot.png)
+
 ## Usage
 
 ### Compile
