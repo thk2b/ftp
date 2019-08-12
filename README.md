@@ -5,6 +5,7 @@ A FTP client and server implementation
 
 ### Compile
 
+Clone with the `--recurse-submodules` to download dependencies and run
 ```
 make
 ```
